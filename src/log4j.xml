@@ -5,11 +5,11 @@
         <layout class="org.apache.log4j.SimpleLayout"/>
     </appender>
     <logger name="com.gargoylesoftware.htmlunit">
-        <level value="error"/>
+        <level value="off"/>
         <appender-ref ref="consoleAppender"/>
     </logger>
     <logger name="org.apache">
-        <level value="error"/>
+        <level value="off"/>
         <appender-ref ref="consoleAppender"/>
     </logger>
     <root>
