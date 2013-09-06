@@ -26,3 +26,13 @@ mainClassName = "ru.yaal.project.habrahabr.saver.HabrahabrArticleSaver"
 distZip {
     baseName = 'HabrahabrArticleSaver'
 }
+apply plugin: "sonar-runner"
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", sonarHostUrl
+        property "sonar.jdbc.url", sonarJdbcUrl
+        property "sonar.jdbc.driverClassName", sonarJdbcDriverClassName
+        property "sonar.jdbc.username", sonarJdbcUsername
+        property "sonar.jdbc.password", sonarJdbcPassword
+    }
+}
