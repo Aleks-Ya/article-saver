@@ -1,8 +1,13 @@
 package ru.yaal.project.habrahabr.saver;
 
+import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.net.URL;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -20,28 +25,47 @@ import static java.lang.String.format;
 public class HabrahabrArticleSaver {
     private static final Logger LOG = Logger.getLogger(HabrahabrArticleSaver.class);
 
+    static {
+        URL url = HabrahabrArticleSaver.class.getResource("log4j.xml");
+        DOMConfigurator.configure(url);
+        String consoleEncoding = System.getProperty("consoleEncoding");
+        if (consoleEncoding != null) {
+            try {
+                System.setOut(new PrintStream(System.out, true, consoleEncoding));
+                ConsoleAppender consoleAppender = (ConsoleAppender) Logger.getRootLogger().getAppender("consoleAppender");
+                consoleAppender.setWriter(new OutputStreamWriter(System.out));
+            } catch (java.io.UnsupportedEncodingException ex) {
+                System.err.println("Unsupported encoding set for console: " + consoleEncoding);
+            }
+        }
+    }
+
     /**
      * @param args Номера постов (например, чтобы скачать "http://habrahabr.ru/post/157165/", нужно ввести "157165").
      */
     public static void main(String[] args) throws IOException {
-        Date start = new Date();
-        LOG.info(format("Начало работы: %s", SimpleDateFormat.
-                getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(start)));
-        LOG.info(format("Параметры приложения: %s", Arrays.deepToString(args)));
-        Parameters parameters = new Parameters(args);
-        Path targetFolder = parameters.getTargetFolder();
-        LOG.info(format("Целевая папка: %s", targetFolder.toString()));
-        List<Article> articles = parameters.getArticles();
-        for (Article article : articles) {
-            article.save(targetFolder);
-            List<Resource> resources = article.getResources();
-            for (Resource resource : resources) {
-                resource.load(targetFolder);
+        try {
+            Date start = new Date();
+            LOG.info(format("Начало работы: %s", SimpleDateFormat.
+                    getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(start)));
+            LOG.info(format("Параметры приложения: %s", Arrays.deepToString(args)));
+            Parameters parameters = new Parameters(args);
+            Path targetFolder = parameters.getTargetFolder();
+            LOG.info(format("Целевая папка: %s", targetFolder.toString()));
+            List<Article> articles = parameters.getArticles();
+            for (Article article : articles) {
+                article.save(targetFolder);
+                List<Resource> resources = article.getResources();
+                for (Resource resource : resources) {
+                    resource.load(targetFolder);
+                }
             }
+            Date finish = new Date();
+            LOG.info(format("Конец работы: %s", SimpleDateFormat.
+                    getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(finish)));
+            LOG.info(format("Длительность работы: %d сек.", (finish.getTime() - start.getTime()) / 1000));
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
         }
-        Date finish = new Date();
-        LOG.info(format("Конец работы: %s", SimpleDateFormat.
-                getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(finish)));
-        LOG.info(format("Длительность работы: %d сек.", (finish.getTime() - start.getTime()) / 1000));
     }
 }
