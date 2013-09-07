@@ -4,6 +4,7 @@ import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
@@ -49,10 +50,18 @@ public class HabrahabrArticleSaver {
             LOG.info(format("Начало работы: %s", SimpleDateFormat.
                     getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(start)));
             LOG.info(format("Параметры приложения: %s", Arrays.deepToString(args)));
-            IParameters IParameters = new Parameters(args);
-            Path targetFolder = IParameters.getTargetFolder();
+            IParameters parameters;
+            if (args.length != 0) {
+                parameters = new ConsoleParameters(args);
+            } else {
+                String currentDir = System.getProperty("user.dir") +"\\";
+                File propertiesFile = new File(currentDir + FileParameters.DEFAULT_PROPERTIES_FILE_NAME);
+                File articlesFile = new File(currentDir + FileParameters.DEFAULT_ARTICLES_FILE_NAME);
+                parameters = new FileParameters(propertiesFile, articlesFile);
+            }
+            Path targetFolder = parameters.getTargetFolder();
             LOG.info(format("Целевая папка: %s", targetFolder.toString()));
-            List<Article> articles = IParameters.getArticles();
+            List<Article> articles = parameters.getArticles();
             for (Article article : articles) {
                 article.save(targetFolder);
                 List<Resource> resources = article.getResources();

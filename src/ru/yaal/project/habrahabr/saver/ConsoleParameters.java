@@ -18,13 +18,13 @@ import static java.lang.String.format;
  * Date: 03.09.13
  * Time: 6:51
  */
-public class Parameters implements IParameters {
-    private static final Logger LOG = Logger.getLogger(Parameters.class);
+public class ConsoleParameters implements IParameters {
+    private static final Logger LOG = Logger.getLogger(ConsoleParameters.class);
     private static final String URL_TEMPLATE = BASE_URL + "/post/%s/";
     private Path targetFolder;
     private List<Article> articles;
 
-    public Parameters(String[] args) throws IOException {
+    public ConsoleParameters(String[] args) throws IOException {
         targetFolder = parseTargetFolder(args);
         articles = parseArticles(args);
         LOG.info("Параметры: " + toString());

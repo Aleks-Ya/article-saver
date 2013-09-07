@@ -19,6 +19,11 @@
         <appender-ref ref="consoleAppender"/>
         <appender-ref ref="fileAppender"/>
     </logger>
+    <logger name="net.sourceforge">
+        <level value="off"/>
+        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="fileAppender"/>
+    </logger>
     <root>
         <level value="debug"/>
         <appender-ref ref="consoleAppender"/>
