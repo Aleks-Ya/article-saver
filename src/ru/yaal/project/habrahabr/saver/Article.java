@@ -25,14 +25,23 @@ import static java.lang.String.format;
  */
 public class Article {
     private static final Logger LOG = Logger.getLogger(Article.class);
+    private URL url;
     private String html;
     private HtmlPage page;
     private List<Resource> resources = new ArrayList<>();
+    private boolean isLoaded = false;
 
-    public Article(URL url) throws IOException {
-        page = loadPage(url);
-        html = cleanUpArticle(page);
-        determineResources(page);
+    public Article(URL url) {
+        this.url = url;
+    }
+
+    private void load() throws IOException {
+        if (!isLoaded) {
+            page = loadPage(url);
+            html = cleanUpArticle(page);
+            determineResources(page);
+            isLoaded = true;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -93,11 +102,13 @@ public class Article {
         return newHtml.toString();
     }
 
-    public List<Resource> getResources() {
+    public List<Resource> getResources() throws IOException {
+        load();
         return resources;
     }
 
-    public String getFileName() {
+    public String getFileName() throws IOException {
+        load();
         HtmlSpan titleSpan = page.getFirstByXPath("//span[contains(@class, 'post_title')]");
         return titleSpan.asText() + ".html";
     }
@@ -110,5 +121,25 @@ public class Article {
         } else {
             LOG.debug(format("%s уже загружен: %s", toString(), target));
         }
+    }
+
+    @Override
+    public String toString() {
+        return format("[Article url=%s]", url);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Article) {
+            Article otherArticle = (Article) other;
+            return url.equals(otherArticle.url);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return url.hashCode();
     }
 }
