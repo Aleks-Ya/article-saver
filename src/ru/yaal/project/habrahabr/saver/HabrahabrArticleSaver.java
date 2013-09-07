@@ -49,10 +49,10 @@ public class HabrahabrArticleSaver {
             LOG.info(format("Начало работы: %s", SimpleDateFormat.
                     getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(start)));
             LOG.info(format("Параметры приложения: %s", Arrays.deepToString(args)));
-            Parameters parameters = new Parameters(args);
-            Path targetFolder = parameters.getTargetFolder();
+            IParameters IParameters = new Parameters(args);
+            Path targetFolder = IParameters.getTargetFolder();
             LOG.info(format("Целевая папка: %s", targetFolder.toString()));
-            List<Article> articles = parameters.getArticles();
+            List<Article> articles = IParameters.getArticles();
             for (Article article : articles) {
                 article.save(targetFolder);
                 List<Resource> resources = article.getResources();

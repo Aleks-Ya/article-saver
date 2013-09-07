@@ -18,9 +18,7 @@ import static java.lang.String.format;
  * Date: 03.09.13
  * Time: 6:51
  */
-public class Parameters {
-    public static final String BASE_URL = "http://habrahabr.ru";
-    public static final String RESOURCES_DIR = "/resources";
+public class Parameters implements IParameters {
     private static final Logger LOG = Logger.getLogger(Parameters.class);
     private static final String URL_TEMPLATE = BASE_URL + "/post/%s/";
     private Path targetFolder;
@@ -58,10 +56,12 @@ public class Parameters {
         return result;
     }
 
+    @Override
     public Path getTargetFolder() {
         return targetFolder;
     }
 
+    @Override
     public List<Article> getArticles() {
         return articles;
     }

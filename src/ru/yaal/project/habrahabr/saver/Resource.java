@@ -26,7 +26,7 @@ public class Resource {
     }
 
     public void load(Path targetFolder) throws IOException {
-        Path resourceDir = Paths.get(targetFolder.toAbsolutePath() + Parameters.RESOURCES_DIR);
+        Path resourceDir = Paths.get(targetFolder.toAbsolutePath() + IParameters.RESOURCES_DIR);
         if (!resourceDir.toFile().exists()) {
             Files.createDirectories(resourceDir);
         }

@@ -52,7 +52,7 @@ public class Article {
     private void addResource(String src) throws MalformedURLException {
         if (src != null && !src.isEmpty()) {
             Resource resource = new Resource(resolve(src));
-            html = html.replaceAll(src, "." + Parameters.RESOURCES_DIR + "/" + resource.getFileName());
+            html = html.replaceAll(src, "." + IParameters.RESOURCES_DIR + "/" + resource.getFileName());
             resources.add(resource);
         }
     }
@@ -62,7 +62,7 @@ public class Article {
         if (url.startsWith("//")) {
             fullUrl = "http:" + url;
         } else if (url.startsWith("/")) {
-            fullUrl = Parameters.BASE_URL + url;
+            fullUrl = IParameters.BASE_URL + url;
         } else {
             fullUrl = url;
         }

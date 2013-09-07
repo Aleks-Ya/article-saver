@@ -6,3 +6,4 @@
 build
 classes
 *.log
+/gradle-app.setting
