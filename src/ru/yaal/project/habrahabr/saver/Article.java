@@ -41,6 +41,7 @@ public class Article {
             html = cleanUpArticle(page);
             determineResources(page);
             isLoaded = true;
+            LOG.info(format("Загружена статья: \"%s\"", getName()));
         }
     }
 
@@ -80,7 +81,7 @@ public class Article {
     }
 
     private HtmlPage loadPage(URL postUrl) throws IOException {
-        LOG.info(format("Загружаю статью: %s", postUrl));
+        LOG.debug(format("Загружаю статью: %s", postUrl));
         final WebClient webClient = new WebClient();
         webClient.getOptions().setThrowExceptionOnScriptError(false);
         HtmlPage result = webClient.getPage(postUrl);
@@ -108,15 +109,15 @@ public class Article {
         return resources;
     }
 
-    public String getFileName() throws IOException {
+    public String getName() throws IOException {
         load();
         HtmlSpan titleSpan = page.getFirstByXPath("//span[contains(@class, 'post_title')]");
-        return titleSpan.asText() + ".html";
+        return titleSpan.asText();
     }
 
     public void save(Path targetFolder) throws IOException {
-        Path target = Paths.get(targetFolder.toAbsolutePath() + "\\" + getFileName());
-        LOG.info(format("Сохраняю статью: %s", target.toAbsolutePath()));
+        Path target = Paths.get(targetFolder.toAbsolutePath() + "\\" + getName() + ".html");
+        LOG.debug(format("Сохраняю статью: \"%s\"", target.toAbsolutePath()));
         if (!target.toFile().exists()) {
             Files.write(target, Arrays.asList(html), Charset.forName("UTF-8"));
         } else {

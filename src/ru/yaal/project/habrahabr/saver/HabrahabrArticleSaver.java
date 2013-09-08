@@ -47,14 +47,14 @@ public class HabrahabrArticleSaver {
     public static void main(String[] args) throws IOException {
         try {
             Date start = new Date();
-            LOG.info(format("Начало работы: %s", SimpleDateFormat.
+            LOG.debug(format("Начало работы: %s", SimpleDateFormat.
                     getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(start)));
-            LOG.info(format("Параметры приложения: %s", Arrays.deepToString(args)));
+            LOG.debug(format("Параметры приложения: %s", Arrays.deepToString(args)));
             IParameters parameters;
             if (args.length != 0) {
                 parameters = new ConsoleParameters(args);
             } else {
-                String currentDir = System.getProperty("user.dir") +"\\";
+                String currentDir = System.getProperty("user.dir") + "\\";
                 File propertiesFile = new File(currentDir + FileParameters.DEFAULT_PROPERTIES_FILE_NAME);
                 File articlesFile = new File(currentDir + FileParameters.DEFAULT_ARTICLES_FILE_NAME);
                 parameters = new FileParameters(propertiesFile, articlesFile);
@@ -62,6 +62,7 @@ public class HabrahabrArticleSaver {
             Path targetFolder = parameters.getTargetFolder();
             LOG.info(format("Целевая папка: %s", targetFolder.toString()));
             List<Article> articles = parameters.getArticles();
+            LOG.info(format("Статей для загрузки: %d", articles.size()));
             for (Article article : articles) {
                 article.save(targetFolder);
                 List<Resource> resources = article.getResources();
@@ -70,7 +71,7 @@ public class HabrahabrArticleSaver {
                 }
             }
             Date finish = new Date();
-            LOG.info(format("Конец работы: %s", SimpleDateFormat.
+            LOG.debug(format("Конец работы: %s", SimpleDateFormat.
                     getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(finish)));
             LOG.info(format("Длительность работы: %d сек.", (finish.getTime() - start.getTime()) / 1000));
         } catch (Exception e) {
