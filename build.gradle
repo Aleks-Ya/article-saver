@@ -26,6 +26,10 @@ mainClassName = "ru.yaal.project.habrahabr.saver.HabrahabrArticleSaver"
 distZip {
     baseName = 'HabrahabrArticleSaver'
 }
+def props = files('ArticleUrls.txt', 'HabrahabrArticleSaver.properties')
+applicationDistribution.from(props) {
+    into "bin"
+}
 apply plugin: "sonar-runner"
 sonarRunner {
     sonarProperties {
