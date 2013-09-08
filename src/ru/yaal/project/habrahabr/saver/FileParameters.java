@@ -2,10 +2,7 @@ package ru.yaal.project.habrahabr.saver;
 
 import org.apache.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -33,21 +30,25 @@ public class FileParameters implements IParameters {
     private List<Article> articles;
 
     public FileParameters(File propertiesFile, File articlesFile) throws IOException {
+        this(new FileReader(propertiesFile), new FileReader(articlesFile));
         LOG.debug(format("Загружаю целевую папку из %s.", propertiesFile));
         LOG.debug(format("Загружаю URL статей из %s", articlesFile));
-        targetFolder = loadTargerFolder(propertiesFile);
+    }
+
+    public FileParameters(Reader propertiesFile, Reader articlesFile) throws IOException {
+        targetFolder = loadTargetFolder(propertiesFile);
         articles = loadArticles(articlesFile);
     }
 
-    private Path loadTargerFolder(File propertiesFile) throws IOException {
+    private Path loadTargetFolder(Reader propertiesFile) throws IOException {
         Properties p = new Properties();
-        p.load(new FileReader(propertiesFile));
+        p.load(propertiesFile);
         return Paths.get(p.getProperty(TARGET_FOLDER_PROPERTY_NAME));
     }
 
-    private List<Article> loadArticles(File articlesFile) throws IOException {
+    private List<Article> loadArticles(Reader articlesFile) throws IOException {
         List<Article> result = new ArrayList<>();
-        BufferedReader in = new BufferedReader(new FileReader(articlesFile));
+        BufferedReader in = new BufferedReader(articlesFile);
         String line;
         while ((line = in.readLine()) != null) {
             if (!EMPTY_LINE_PATTERN.matcher(line).matches()) {
