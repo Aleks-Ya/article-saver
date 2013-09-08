@@ -4,11 +4,10 @@ import java.nio.file.Path;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * Параметры приложения: целевая папка и URL статей для загрузки.
  * User: Aleks
  * Date: 07.09.13
  * Time: 17:26
- * To change this template use File | Settings | File Templates.
  */
 public interface IParameters {
     String BASE_URL = "http://habrahabr.ru";
