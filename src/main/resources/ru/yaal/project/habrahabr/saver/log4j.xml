@@ -9,23 +9,11 @@
         <param name="Encoding" value="Cp866"/>
         <layout class="org.apache.log4j.SimpleLayout"/>
     </appender>
-    <logger name="com.gargoylesoftware.htmlunit">
-        <level value="off"/>
-        <appender-ref ref="consoleAppender"/>
-        <appender-ref ref="fileAppender"/>
-    </logger>
-    <logger name="org.apache">
-        <level value="off"/>
-        <appender-ref ref="consoleAppender"/>
-        <appender-ref ref="fileAppender"/>
-    </logger>
-    <logger name="net.sourceforge">
-        <level value="off"/>
-        <appender-ref ref="consoleAppender"/>
-        <appender-ref ref="fileAppender"/>
+    <logger name="ru.yaal.project.habrahabr">
+        <level value="debug"/>
     </logger>
     <root>
-        <level value="debug"/>
+        <level value="off"/>
         <appender-ref ref="consoleAppender"/>
         <appender-ref ref="fileAppender"/>
     </root>

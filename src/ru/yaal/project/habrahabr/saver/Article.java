@@ -82,6 +82,7 @@ public class Article {
     private HtmlPage loadPage(URL postUrl) throws IOException {
         LOG.info(format("Загружаю статью: %s", postUrl));
         final WebClient webClient = new WebClient();
+        webClient.getOptions().setThrowExceptionOnScriptError(false);
         HtmlPage result = webClient.getPage(postUrl);
         webClient.closeAllWindows();
         return result;
