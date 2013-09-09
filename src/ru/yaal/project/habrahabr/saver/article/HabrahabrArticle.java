@@ -3,9 +3,9 @@ package ru.yaal.project.habrahabr.saver.article;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import org.apache.log4j.Logger;
-import ru.yaal.project.habrahabr.saver.parameters.IParameters;
 import ru.yaal.project.habrahabr.saver.Resource;
 import ru.yaal.project.habrahabr.saver.UrlWrapper;
+import ru.yaal.project.habrahabr.saver.parameters.IParameters;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -25,16 +25,15 @@ import static java.lang.String.format;
  * Date: 03.09.13
  * Time: 6:52
  */
-public class Article implements IArticle {
-    private static final Logger LOG = Logger.getLogger(Article.class);
-    private final UrlWrapper url;
+public class HabrahabrArticle extends CommonArticle {
+    private static final Logger LOG = Logger.getLogger(HabrahabrArticle.class);
+    private final List<Resource> resources = new ArrayList<>();
     private String html;
     private HtmlPage page;
-    private final List<Resource> resources = new ArrayList<>();
     private boolean isLoaded = false;
 
-    public Article(UrlWrapper url) {
-        this.url = url;
+    public HabrahabrArticle(UrlWrapper url) {
+        super(url);
     }
 
     private void load() throws IOException {
@@ -132,13 +131,13 @@ public class Article implements IArticle {
 
     @Override
     public String toString() {
-        return format("[Article url=%s]", url);
+        return format("[HabrahabrArticle url=%s]", url);
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other instanceof Article) {
-            Article otherArticle = (Article) other;
+        if (other instanceof HabrahabrArticle) {
+            HabrahabrArticle otherArticle = (HabrahabrArticle) other;
             return url.equals(otherArticle.url);
         } else {
             return false;

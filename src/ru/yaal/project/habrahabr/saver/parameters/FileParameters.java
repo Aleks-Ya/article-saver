@@ -2,7 +2,7 @@ package ru.yaal.project.habrahabr.saver.parameters;
 
 import org.apache.log4j.Logger;
 import ru.yaal.project.habrahabr.saver.UrlWrapper;
-import ru.yaal.project.habrahabr.saver.article.Article;
+import ru.yaal.project.habrahabr.saver.article.HabrahabrArticle;
 import ru.yaal.project.habrahabr.saver.article.IArticle;
 
 import java.io.*;
@@ -55,7 +55,7 @@ public class FileParameters implements IParameters {
         while ((line = in.readLine()) != null) {
             if (!EMPTY_LINE_PATTERN.matcher(line).matches()) {
                 try {
-                    result.add(new Article(new UrlWrapper(line)));
+                    result.add(new HabrahabrArticle(new UrlWrapper(line)));
                 } catch (MalformedURLException e) {
                     LOG.warn(format("Пропускаю некорректную ссылку на статью: %s", line));
                 }
