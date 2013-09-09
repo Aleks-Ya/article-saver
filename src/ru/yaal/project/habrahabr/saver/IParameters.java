@@ -15,5 +15,5 @@ public interface IParameters {
 
     Path getTargetFolder();
 
-    List<Article> getArticles();
+    List<IArticle> getArticles();
 }

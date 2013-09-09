@@ -59,9 +59,9 @@ public class HabrahabrArticleSaver {
             }
             Path targetFolder = parameters.getTargetFolder();
             LOG.info(format("Целевая папка: %s", targetFolder.toString()));
-            List<Article> articles = parameters.getArticles();
+            List<IArticle> articles = parameters.getArticles();
             LOG.info(format("Статей для загрузки: %d", articles.size()));
-            for (Article article : articles) {
+            for (IArticle article : articles) {
                 article.save(targetFolder);
                 List<Resource> resources = article.getResources();
                 for (Resource resource : resources) {

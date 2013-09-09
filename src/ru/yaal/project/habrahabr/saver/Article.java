@@ -22,7 +22,7 @@ import static java.lang.String.format;
  * Date: 03.09.13
  * Time: 6:52
  */
-public class Article {
+public class Article implements IArticle {
     private static final Logger LOG = Logger.getLogger(Article.class);
     private UrlWrapper url;
     private String html;
@@ -103,17 +103,20 @@ public class Article {
         return newHtml.toString();
     }
 
+    @Override
     public List<Resource> getResources() throws IOException {
         load();
         return resources;
     }
 
+    @Override
     public String getName() throws IOException {
         load();
         HtmlSpan titleSpan = page.getFirstByXPath("//span[contains(@class, 'post_title')]");
         return titleSpan.asText();
     }
 
+    @Override
     public void save(Path targetFolder) throws IOException {
         Path target = Paths.get(targetFolder.toAbsolutePath() + "\\" + getName() + ".html");
         LOG.debug(format("—охран€ю статью: \"%s\"", target.toAbsolutePath()));

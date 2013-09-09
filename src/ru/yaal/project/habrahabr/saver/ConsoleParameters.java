@@ -21,7 +21,7 @@ public class ConsoleParameters implements IParameters {
     private static final Logger LOG = Logger.getLogger(ConsoleParameters.class);
     private static final String URL_TEMPLATE = BASE_URL + "/post/%s/";
     private Path targetFolder;
-    private List<Article> articles;
+    private List<IArticle> articles;
 
     public ConsoleParameters(String[] args) throws IOException {
         targetFolder = parseTargetFolder(args);
@@ -29,8 +29,8 @@ public class ConsoleParameters implements IParameters {
         LOG.info("Параметры: " + toString());
     }
 
-    private List<Article> parseArticles(String[] args) throws IOException {
-        List<Article> result = new ArrayList<>(args.length);
+    private List<IArticle> parseArticles(String[] args) throws IOException {
+        List<IArticle> result = new ArrayList<>(args.length);
         String[] postIds = Arrays.copyOfRange(args, 1, args.length);
         for (String postId : postIds) {
             UrlWrapper url = new UrlWrapper(format(URL_TEMPLATE, postId));
@@ -61,7 +61,7 @@ public class ConsoleParameters implements IParameters {
     }
 
     @Override
-    public List<Article> getArticles() {
+    public List<IArticle> getArticles() {
         return articles;
     }
 

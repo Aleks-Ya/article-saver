@@ -26,7 +26,7 @@ public class FileParameters implements IParameters {
     private static final Logger LOG = Logger.getLogger(FileParameters.class);
     private static final Pattern EMPTY_LINE_PATTERN = Pattern.compile("^\\s*$");
     private Path targetFolder;
-    private List<Article> articles;
+    private List<IArticle> articles;
 
     public FileParameters(File propertiesFile, File articlesFile) throws IOException {
         this(new FileReader(propertiesFile), new FileReader(articlesFile));
@@ -45,8 +45,8 @@ public class FileParameters implements IParameters {
         return Paths.get(p.getProperty(TARGET_FOLDER_PROPERTY_NAME));
     }
 
-    private List<Article> loadArticles(Reader articlesFile) throws IOException {
-        List<Article> result = new ArrayList<>();
+    private List<IArticle> loadArticles(Reader articlesFile) throws IOException {
+        List<IArticle> result = new ArrayList<>();
         BufferedReader in = new BufferedReader(articlesFile);
         String line;
         while ((line = in.readLine()) != null) {
@@ -67,7 +67,7 @@ public class FileParameters implements IParameters {
     }
 
     @Override
-    public List<Article> getArticles() {
+    public List<IArticle> getArticles() {
         return articles;
     }
 }
