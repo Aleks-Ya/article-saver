@@ -69,7 +69,7 @@ public class HabrahabrArticleSaver {
                 article.save(targetFolder);
                 List<Resource> resources = article.getResources();
                 for (Resource resource : resources) {
-                    resource.load(targetFolder);
+                    resource.save(targetFolder);
                 }
             }
             Date finish = new Date();

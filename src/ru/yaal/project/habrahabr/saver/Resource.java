@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import static java.lang.String.format;
 
@@ -25,7 +27,7 @@ public final class Resource {
         this.url = url;
     }
 
-    public void load(Path targetFolder) throws IOException {
+    public void save(Path targetFolder) throws IOException {
         Path resourceDir = Paths.get(targetFolder.toAbsolutePath() + IParameters.RESOURCES_DIR);
         if (!resourceDir.toFile().exists()) {
             Files.createDirectories(resourceDir);
@@ -41,8 +43,26 @@ public final class Resource {
     }
 
     public String getFileName() {
-        String[] spitted = url.getPath().split("/");
-        return spitted[spitted.length - 1];
+        String result;
+        try {
+            MessageDigest digest = MessageDigest.getInstance("sha-1");
+            digest.update(url.getPath().getBytes());
+            result = hashToString(digest.digest()).replaceAll("\\s*", "");
+        } catch (NoSuchAlgorithmException e) {
+            LOG.error(format("Алгоритм sha-1 не поддерживается, использую Object#hashCode()."), e);
+            result = String.valueOf(url.getPath().hashCode());
+        }
+        return result;
+    }
+
+    private String hashToString(byte[] hash) {
+        String result = "";
+        for (byte b : hash) {
+            int v = b & 0xFF;
+            if (v < 16) result += "0";
+            result += Integer.toString(v, 16).toUpperCase() + " ";
+        }
+        return result;
     }
 
     @Override
