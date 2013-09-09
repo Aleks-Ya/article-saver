@@ -1,8 +1,13 @@
 package ru.yaal.project.habrahabr.saver.article;
 
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import com.gargoylesoftware.htmlunit.html.HtmlLink;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlScript;
 import org.apache.log4j.Logger;
 import ru.yaal.project.habrahabr.saver.Resource;
+import ru.yaal.project.habrahabr.saver.url.UrlResolver;
 import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
 
 import java.io.IOException;
@@ -11,6 +16,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,13 +31,15 @@ import static java.lang.String.format;
 public abstract class AbstractArticle implements IArticle {
     private static final Logger LOG = Logger.getLogger(AbstractArticle.class);
     final UrlWrapper url;
+    private final UrlResolver resolver;
     private String articleHtml;
     private String articleTitle;
     private List<Resource> resources;
     private boolean isLoaded = false;
 
-    AbstractArticle(UrlWrapper url) {
+    AbstractArticle(UrlWrapper url, UrlResolver resolver) {
         this.url = url;
+        this.resolver = resolver;
     }
 
     @Override
@@ -51,13 +59,18 @@ public abstract class AbstractArticle implements IArticle {
         }
     }
 
-    protected abstract HtmlPage loadPage(UrlWrapper url) throws IOException;
+    private HtmlPage loadPage(UrlWrapper url) throws IOException {
+        LOG.debug(format("Загружаю статью: %s", url));
+        final WebClient webClient = new WebClient();
+        webClient.getOptions().setThrowExceptionOnScriptError(false);
+        HtmlPage result = webClient.getPage(url.toUrl());
+        webClient.closeAllWindows();
+        return result;
+    }
 
     protected abstract String fetchArticleHtml(HtmlPage page, List<Resource> resources);
 
     protected abstract String fetchArticleTitle(HtmlPage page);
-
-    protected abstract List<Resource> fetchResources(HtmlPage page) throws MalformedURLException;
 
     @Override
     public final String getName() throws IOException {
@@ -94,6 +107,28 @@ public abstract class AbstractArticle implements IArticle {
     @Override
     public int hashCode() {
         return url.hashCode();
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<Resource> fetchResources(HtmlPage page) throws MalformedURLException {
+        List<Resource> resources = new ArrayList<>();
+        for (HtmlScript script : (List<HtmlScript>) page.getByXPath("/html/head/script")) {
+            String src = script.getSrcAttribute();
+            addResource(src, resources);
+        }
+        for (HtmlLink link : (List<HtmlLink>) page.getByXPath("/html/head/link")) {
+            addResource(link.getHrefAttribute(), resources);
+        }
+        for (HtmlImage image : (List<HtmlImage>) page.getByXPath("//img")) {
+            addResource(image.getSrcAttribute(), resources);
+        }
+        return resources;
+    }
+
+    private void addResource(String src, List<Resource> resources) throws MalformedURLException {
+        if (src != null && !src.isEmpty()) {
+            resources.add(new Resource(src, resolver));
+        }
     }
 
 }

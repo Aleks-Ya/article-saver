@@ -16,6 +16,9 @@ public class ArticleFactory {
             case "habrahabr.ru": {
                 return new HabrahabrArticle(url);
             }
+            case "ru.wikipedia.org": {
+                return new WikipediaArticle(url);
+            }
             default: {
                 return new CommonArticle(url);
             }

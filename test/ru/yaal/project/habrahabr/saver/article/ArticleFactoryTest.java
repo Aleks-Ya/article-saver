@@ -15,6 +15,12 @@ public class ArticleFactoryTest {
     }
 
     @Test
+    public void getWikipediaArticle() throws Exception {
+        UrlWrapper url = when(mock(UrlWrapper.class).getHost()).thenReturn("ru.wikipedia.org").getMock();
+        assertTrue(ArticleFactory.getArticle(url) instanceof WikipediaArticle);
+    }
+
+    @Test
     public void getCommonArticle() throws Exception {
         UrlWrapper url = when(mock(UrlWrapper.class).getHost()).thenReturn("oracle.com").getMock();
         assertTrue(ArticleFactory.getArticle(url) instanceof CommonArticle);

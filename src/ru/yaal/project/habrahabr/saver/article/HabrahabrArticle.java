@@ -1,19 +1,15 @@
 package ru.yaal.project.habrahabr.saver.article;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.*;
-import org.apache.log4j.Logger;
+import com.gargoylesoftware.htmlunit.html.HtmlDivision;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import ru.yaal.project.habrahabr.saver.Resource;
+import ru.yaal.project.habrahabr.saver.parameters.IParameters;
 import ru.yaal.project.habrahabr.saver.url.UrlResolver;
 import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
-import ru.yaal.project.habrahabr.saver.parameters.IParameters;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.String.format;
 
 /**
  * Статья Habrahabr.
@@ -22,21 +18,9 @@ import static java.lang.String.format;
  * Time: 6:52
  */
 class HabrahabrArticle extends AbstractArticle {
-    private static final Logger LOG = Logger.getLogger(HabrahabrArticle.class);
-    private static final UrlResolver URL_RESOLVER = new UrlResolver("http://habrahabr.ru");
 
     HabrahabrArticle(UrlWrapper url) {
-        super(url);
-    }
-
-    @Override
-    protected HtmlPage loadPage(UrlWrapper url) throws IOException {
-        LOG.debug(format("Загружаю статью: %s", url));
-        final WebClient webClient = new WebClient();
-        webClient.getOptions().setThrowExceptionOnScriptError(false);
-        HtmlPage result = webClient.getPage(url.toUrl());
-        webClient.closeAllWindows();
-        return result;
+        super(url, new UrlResolver("http://habrahabr.ru"));
     }
 
     @Override
@@ -59,31 +43,8 @@ class HabrahabrArticle extends AbstractArticle {
 
     @Override
     protected String fetchArticleTitle(HtmlPage page) {
-        HtmlSpan titleSpan = page.getFirstByXPath("//span[contains(@class, 'post_title')]");
-        return titleSpan.asText();
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    protected List<Resource> fetchResources(HtmlPage page) throws MalformedURLException {
-        List<Resource> resources = new ArrayList<>();
-        for (HtmlScript script : (List<HtmlScript>) page.getByXPath("/html/head/script")) {
-            String src = script.getSrcAttribute();
-            addResource(src, resources);
-        }
-        for (HtmlLink link : (List<HtmlLink>) page.getByXPath("/html/head/link")) {
-            addResource(link.getHrefAttribute(), resources);
-        }
-        for (HtmlImage image : (List<HtmlImage>) page.getByXPath("//img")) {
-            addResource(image.getSrcAttribute(), resources);
-        }
-        return resources;
-    }
-
-    private void addResource(String src, List<Resource> resources) throws MalformedURLException {
-        if (src != null && !src.isEmpty()) {
-            resources.add(new Resource(src, URL_RESOLVER));
-        }
+        HtmlSpan span = page.getFirstByXPath("//span[contains(@class, 'post_title')]");
+        return span.asText();
     }
 
 }

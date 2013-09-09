@@ -2,10 +2,9 @@ package ru.yaal.project.habrahabr.saver.article;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import ru.yaal.project.habrahabr.saver.Resource;
+import ru.yaal.project.habrahabr.saver.url.UrlResolver;
 import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 
 /**
@@ -17,12 +16,7 @@ import java.util.List;
 class CommonArticle extends AbstractArticle {
 
     CommonArticle(UrlWrapper url) {
-        super(url);
-    }
-
-    @Override
-    protected HtmlPage loadPage(UrlWrapper url) throws IOException {
-        throw new UnsupportedOperationException("Не реализовано");
+        super(url, new UrlResolver(""));
     }
 
     @Override
@@ -35,8 +29,4 @@ class CommonArticle extends AbstractArticle {
         throw new UnsupportedOperationException("Не реализовано");
     }
 
-    @Override
-    protected List<Resource> fetchResources(HtmlPage page) throws MalformedURLException {
-        throw new UnsupportedOperationException("Не реализовано");
-    }
 }
