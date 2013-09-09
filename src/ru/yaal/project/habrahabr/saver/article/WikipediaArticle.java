@@ -6,18 +6,16 @@ import ru.yaal.project.habrahabr.saver.UrlWrapper;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Path;
 import java.util.List;
 
 /**
- * Обычная статья (сохраняет html-страницу полностью).
+ * Статья Wikipedia.
  * User: Aleks
- * Date: 03.09.13
- * Time: 6:52
+ * Date: 09.09.13
+ * Time: 11:20
  */
-class CommonArticle extends AbstractArticle {
-
-    CommonArticle(UrlWrapper url) {
+class WikipediaArticle extends AbstractArticle {
+    WikipediaArticle(UrlWrapper url) {
         super(url);
     }
 
@@ -40,4 +38,5 @@ class CommonArticle extends AbstractArticle {
     protected List<Resource> fetchResources(HtmlPage page) throws MalformedURLException {
         throw new UnsupportedOperationException("Не реализовано");
     }
+
 }

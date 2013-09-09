@@ -5,6 +5,7 @@ import ru.yaal.project.habrahabr.saver.parameters.IParameters;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,10 +22,12 @@ import static java.lang.String.format;
  */
 public final class Resource {
     private static final Logger LOG = Logger.getLogger(Resource.class);
-    private final UrlWrapper url;
+    private final String originalUrl;
+    private final UrlWrapper fullUrl;
 
-    public Resource(UrlWrapper url) {
-        this.url = url;
+    public Resource(String originalUrl, UrlResolver resolver) throws MalformedURLException {
+        this.originalUrl = originalUrl;
+        this.fullUrl = resolver.resolve(originalUrl);
     }
 
     public void save(Path targetFolder) throws IOException {
@@ -34,7 +37,7 @@ public final class Resource {
         }
         Path target = Paths.get(resourceDir.toAbsolutePath() + "\\" + getFileName());
         if (!target.toFile().exists()) {
-            try (InputStream is = url.openStream()) {
+            try (InputStream is = fullUrl.openStream()) {
                 Files.copy(is, target);
             }
         } else {
@@ -46,11 +49,11 @@ public final class Resource {
         String result;
         try {
             MessageDigest digest = MessageDigest.getInstance("sha-1");
-            digest.update(url.getPath().getBytes());
+            digest.update(fullUrl.toUrlString().getBytes());
             result = hashToString(digest.digest()).replaceAll("\\s*", "");
         } catch (NoSuchAlgorithmException e) {
             LOG.error(format("Алгоритм sha-1 не поддерживается, использую Object#hashCode()."), e);
-            result = String.valueOf(url.getPath().hashCode());
+            result = String.valueOf(fullUrl.toUrlString().hashCode());
         }
         return result;
     }
@@ -67,6 +70,10 @@ public final class Resource {
 
     @Override
     public String toString() {
-        return format("[Ресурс url=%s]", url);
+        return format("[Ресурс originalUrl=%s]", originalUrl);
+    }
+
+    public String getOriginalUrl() {
+        return originalUrl;
     }
 }

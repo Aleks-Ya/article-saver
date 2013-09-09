@@ -25,8 +25,8 @@ public class UrlWrapper {
         return url.openStream();
     }
 
-    public String getPath() {
-        return url.getPath();
+    public String toUrlString() {
+        return url.toString();
     }
 
     @Override

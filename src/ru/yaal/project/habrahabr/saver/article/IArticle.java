@@ -13,9 +13,9 @@ import java.util.List;
  * Time: 9:54
  */
 public interface IArticle {
-    List<Resource> getResources() throws IOException;
-
     String getName() throws IOException;
+
+    List<Resource> getResources() throws IOException;
 
     void save(Path targetFolder) throws IOException;
 }
