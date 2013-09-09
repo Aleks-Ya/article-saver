@@ -4,7 +4,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.*;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -40,7 +39,7 @@ public class FileParametersTest {
         IParameters parameters = new FileParameters(propertiesFile, articlesFile);
         assertEquals(parameters.getTargetFolder().toString(), expTargerFolder);
         assertEquals(parameters.getArticles(),
-                Arrays.asList(new Article(new URL(expArticle1)), new Article(new URL(expArticle2))));
+                Arrays.asList(new Article(new UrlWrapper(expArticle1)), new Article(new UrlWrapper(expArticle2))));
     }
 
     @Test

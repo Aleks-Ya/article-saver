@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class FileParameters implements IParameters {
         while ((line = in.readLine()) != null) {
             if (!EMPTY_LINE_PATTERN.matcher(line).matches()) {
                 try {
-                    result.add(new Article(new URL(line)));
+                    result.add(new Article(new UrlWrapper(line)));
                 } catch (MalformedURLException e) {
                     LOG.warn(format("Пропускаю некорректную ссылку на статью: %s", line));
                 }

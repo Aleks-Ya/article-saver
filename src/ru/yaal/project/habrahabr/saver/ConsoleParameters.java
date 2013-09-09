@@ -3,7 +3,6 @@ package ru.yaal.project.habrahabr.saver;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class ConsoleParameters implements IParameters {
         List<Article> result = new ArrayList<>(args.length);
         String[] postIds = Arrays.copyOfRange(args, 1, args.length);
         for (String postId : postIds) {
-            URL url = new URL(format(URL_TEMPLATE, postId));
+            UrlWrapper url = new UrlWrapper(format(URL_TEMPLATE, postId));
             result.add(new Article(url));
         }
         return result;

@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
-import java.net.URL;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -27,8 +26,7 @@ public class HabrahabrArticleSaver {
     private static final Logger LOG = Logger.getLogger(HabrahabrArticleSaver.class);
 
     static {
-        URL url = HabrahabrArticleSaver.class.getResource("log4j.xml");
-        DOMConfigurator.configure(url);
+        DOMConfigurator.configure(HabrahabrArticleSaver.class.getResource("log4j.xml"));
         String consoleEncoding = System.getProperty("consoleEncoding");
         if (consoleEncoding != null) {
             try {

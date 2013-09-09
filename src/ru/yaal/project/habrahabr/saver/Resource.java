@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,9 +18,9 @@ import static java.lang.String.format;
  */
 public class Resource {
     private static final Logger LOG = Logger.getLogger(Resource.class);
-    private URL url;
+    private UrlWrapper url;
 
-    public Resource(URL url) {
+    public Resource(UrlWrapper url) {
         this.url = url;
     }
 

@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,13 +24,13 @@ import static java.lang.String.format;
  */
 public class Article {
     private static final Logger LOG = Logger.getLogger(Article.class);
-    private URL url;
+    private UrlWrapper url;
     private String html;
     private HtmlPage page;
     private List<Resource> resources = new ArrayList<>();
     private boolean isLoaded = false;
 
-    public Article(URL url) {
+    public Article(UrlWrapper url) {
         this.url = url;
     }
 
@@ -67,7 +66,7 @@ public class Article {
         }
     }
 
-    private URL resolve(String url) throws MalformedURLException {
+    private UrlWrapper resolve(String url) throws MalformedURLException {
         String fullUrl;
         if (url.startsWith("//")) {
             fullUrl = "http:" + url;
@@ -77,14 +76,14 @@ public class Article {
             fullUrl = url;
         }
         LOG.debug(format("Найден ресурс: %s", fullUrl));
-        return new URL(fullUrl);
+        return new UrlWrapper(fullUrl);
     }
 
-    private HtmlPage loadPage(URL postUrl) throws IOException {
+    private HtmlPage loadPage(UrlWrapper postUrl) throws IOException {
         LOG.debug(format("Загружаю статью: %s", postUrl));
         final WebClient webClient = new WebClient();
         webClient.getOptions().setThrowExceptionOnScriptError(false);
-        HtmlPage result = webClient.getPage(postUrl);
+        HtmlPage result = webClient.getPage(postUrl.toUrl());
         webClient.closeAllWindows();
         return result;
     }
