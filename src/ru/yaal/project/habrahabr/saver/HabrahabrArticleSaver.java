@@ -3,6 +3,10 @@ package ru.yaal.project.habrahabr.saver;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
+import ru.yaal.project.habrahabr.saver.article.IArticle;
+import ru.yaal.project.habrahabr.saver.parameters.ConsoleParameters;
+import ru.yaal.project.habrahabr.saver.parameters.FileParameters;
+import ru.yaal.project.habrahabr.saver.parameters.IParameters;
 
 import java.io.File;
 import java.io.IOException;

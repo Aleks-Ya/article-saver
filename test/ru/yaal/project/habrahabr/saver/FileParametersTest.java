@@ -2,6 +2,9 @@ package ru.yaal.project.habrahabr.saver;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.yaal.project.habrahabr.saver.article.Article;
+import ru.yaal.project.habrahabr.saver.parameters.FileParameters;
+import ru.yaal.project.habrahabr.saver.parameters.IParameters;
 
 import java.io.*;
 import java.util.Arrays;
@@ -22,9 +25,9 @@ public class FileParametersTest {
     public void testGetTargetFolder() throws IOException {
         File propertiesFile = File.createTempFile("properties_habrahabr", ".tmp");
         propertiesFile.deleteOnExit();
-        String expTargerFolder = "c:\\temp\\out\\folder";
+        String expTargetFolder = "c:\\temp\\out\\folder";
         Properties p = new Properties();
-        p.setProperty(FileParameters.TARGET_FOLDER_PROPERTY_NAME, expTargerFolder);
+        p.setProperty(FileParameters.TARGET_FOLDER_PROPERTY_NAME, expTargetFolder);
         p.store(new FileOutputStream(propertiesFile), "commmmmmment");
 
         File articlesFile = File.createTempFile("articles_habrahabr", ".tmp");
@@ -37,7 +40,7 @@ public class FileParametersTest {
         }
 
         IParameters parameters = new FileParameters(propertiesFile, articlesFile);
-        assertEquals(parameters.getTargetFolder().toString(), expTargerFolder);
+        assertEquals(parameters.getTargetFolder().toString(), expTargetFolder);
         assertEquals(parameters.getArticles(),
                 Arrays.asList(new Article(new UrlWrapper(expArticle1)), new Article(new UrlWrapper(expArticle2))));
     }

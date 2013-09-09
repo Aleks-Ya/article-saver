@@ -1,8 +1,11 @@
-package ru.yaal.project.habrahabr.saver;
+package ru.yaal.project.habrahabr.saver.article;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import org.apache.log4j.Logger;
+import ru.yaal.project.habrahabr.saver.parameters.IParameters;
+import ru.yaal.project.habrahabr.saver.Resource;
+import ru.yaal.project.habrahabr.saver.UrlWrapper;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -24,10 +27,10 @@ import static java.lang.String.format;
  */
 public class Article implements IArticle {
     private static final Logger LOG = Logger.getLogger(Article.class);
-    private UrlWrapper url;
+    private final UrlWrapper url;
     private String html;
     private HtmlPage page;
-    private List<Resource> resources = new ArrayList<>();
+    private final List<Resource> resources = new ArrayList<>();
     private boolean isLoaded = false;
 
     public Article(UrlWrapper url) {

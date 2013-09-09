@@ -1,6 +1,9 @@
-package ru.yaal.project.habrahabr.saver;
+package ru.yaal.project.habrahabr.saver.parameters;
 
 import org.apache.log4j.Logger;
+import ru.yaal.project.habrahabr.saver.UrlWrapper;
+import ru.yaal.project.habrahabr.saver.article.Article;
+import ru.yaal.project.habrahabr.saver.article.IArticle;
 
 import java.io.*;
 import java.net.MalformedURLException;

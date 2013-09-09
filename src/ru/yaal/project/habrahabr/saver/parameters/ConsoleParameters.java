@@ -1,6 +1,9 @@
-package ru.yaal.project.habrahabr.saver;
+package ru.yaal.project.habrahabr.saver.parameters;
 
 import org.apache.log4j.Logger;
+import ru.yaal.project.habrahabr.saver.UrlWrapper;
+import ru.yaal.project.habrahabr.saver.article.Article;
+import ru.yaal.project.habrahabr.saver.article.IArticle;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,10 +20,10 @@ import static java.lang.String.format;
  * Date: 03.09.13
  * Time: 6:51
  */
-public class ConsoleParameters implements IParameters {
+public final class ConsoleParameters implements IParameters {
     private static final Logger LOG = Logger.getLogger(ConsoleParameters.class);
     private static final String URL_TEMPLATE = BASE_URL + "/post/%s/";
-    private Path targetFolder;
+    private final Path targetFolder;
     private List<IArticle> articles;
 
     public ConsoleParameters(String[] args) throws IOException {

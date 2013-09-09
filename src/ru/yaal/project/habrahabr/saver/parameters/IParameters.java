@@ -1,4 +1,6 @@
-package ru.yaal.project.habrahabr.saver;
+package ru.yaal.project.habrahabr.saver.parameters;
+
+import ru.yaal.project.habrahabr.saver.article.IArticle;
 
 import java.nio.file.Path;
 import java.util.List;

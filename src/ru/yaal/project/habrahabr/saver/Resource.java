@@ -1,6 +1,7 @@
 package ru.yaal.project.habrahabr.saver;
 
 import org.apache.log4j.Logger;
+import ru.yaal.project.habrahabr.saver.parameters.IParameters;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,9 +17,9 @@ import static java.lang.String.format;
  * Date: 03.09.13
  * Time: 7:09
  */
-public class Resource {
+public final class Resource {
     private static final Logger LOG = Logger.getLogger(Resource.class);
-    private UrlWrapper url;
+    private final UrlWrapper url;
 
     public Resource(UrlWrapper url) {
         this.url = url;
@@ -40,8 +41,8 @@ public class Resource {
     }
 
     public String getFileName() {
-        String[] splitted = url.getPath().split("/");
-        return splitted[splitted.length - 1];
+        String[] spitted = url.getPath().split("/");
+        return spitted[spitted.length - 1];
     }
 
     @Override
