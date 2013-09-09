@@ -2,7 +2,7 @@ package ru.yaal.project.habrahabr.saver.parameters;
 
 import org.apache.log4j.Logger;
 import ru.yaal.project.habrahabr.saver.UrlWrapper;
-import ru.yaal.project.habrahabr.saver.article.HabrahabrArticle;
+import ru.yaal.project.habrahabr.saver.article.ArticleFactory;
 import ru.yaal.project.habrahabr.saver.article.IArticle;
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ public final class ConsoleParameters implements IParameters {
         String[] postIds = Arrays.copyOfRange(args, 1, args.length);
         for (String postId : postIds) {
             UrlWrapper url = new UrlWrapper(format(URL_TEMPLATE, postId));
-            result.add(new HabrahabrArticle(url));
+            result.add(ArticleFactory.getArticle(url));
         }
         return result;
     }

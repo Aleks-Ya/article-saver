@@ -2,7 +2,7 @@ package ru.yaal.project.habrahabr.saver;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.yaal.project.habrahabr.saver.article.HabrahabrArticle;
+import ru.yaal.project.habrahabr.saver.article.ArticleFactory;
 import ru.yaal.project.habrahabr.saver.parameters.FileParameters;
 import ru.yaal.project.habrahabr.saver.parameters.IParameters;
 
@@ -42,7 +42,8 @@ public class FileParametersTest {
         IParameters parameters = new FileParameters(propertiesFile, articlesFile);
         assertEquals(parameters.getTargetFolder().toString(), expTargetFolder);
         assertEquals(parameters.getArticles(),
-                Arrays.asList(new HabrahabrArticle(new UrlWrapper(expArticle1)), new HabrahabrArticle(new UrlWrapper(expArticle2))));
+                Arrays.asList(ArticleFactory.getArticle(new UrlWrapper(expArticle1)),
+                        ArticleFactory.getArticle(new UrlWrapper(expArticle2))));
     }
 
     @Test

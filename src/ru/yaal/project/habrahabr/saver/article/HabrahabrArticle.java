@@ -32,7 +32,7 @@ public class HabrahabrArticle extends CommonArticle {
     private HtmlPage page;
     private boolean isLoaded = false;
 
-    public HabrahabrArticle(UrlWrapper url) {
+    HabrahabrArticle(UrlWrapper url) {
         super(url);
     }
 

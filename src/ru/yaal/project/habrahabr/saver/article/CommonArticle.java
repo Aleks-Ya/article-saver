@@ -16,7 +16,7 @@ import java.util.List;
 public class CommonArticle implements IArticle {
     protected final UrlWrapper url;
 
-    public CommonArticle(UrlWrapper url) {
+    CommonArticle(UrlWrapper url) {
         this.url = url;
     }
 

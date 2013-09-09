@@ -49,6 +49,10 @@ public class UrlWrapper {
         return url.hashCode();
     }
 
+    public String getHost() {
+        return url.getHost();
+    }
+
     public URL toUrl() {
         return url;
     }
