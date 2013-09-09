@@ -4,8 +4,8 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import org.apache.log4j.Logger;
 import ru.yaal.project.habrahabr.saver.Resource;
-import ru.yaal.project.habrahabr.saver.UrlResolver;
-import ru.yaal.project.habrahabr.saver.UrlWrapper;
+import ru.yaal.project.habrahabr.saver.url.UrlResolver;
+import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
 import ru.yaal.project.habrahabr.saver.parameters.IParameters;
 
 import java.io.IOException;

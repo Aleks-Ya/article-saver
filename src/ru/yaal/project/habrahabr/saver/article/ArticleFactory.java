@@ -1,6 +1,6 @@
 package ru.yaal.project.habrahabr.saver.article;
 
-import ru.yaal.project.habrahabr.saver.UrlWrapper;
+import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
 
 /**
  * Фабрика IArticle.

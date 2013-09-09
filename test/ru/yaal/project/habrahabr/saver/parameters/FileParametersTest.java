@@ -1,10 +1,9 @@
-package ru.yaal.project.habrahabr.saver;
+package ru.yaal.project.habrahabr.saver.parameters;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.yaal.project.habrahabr.saver.article.ArticleFactory;
-import ru.yaal.project.habrahabr.saver.parameters.FileParameters;
-import ru.yaal.project.habrahabr.saver.parameters.IParameters;
+import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
 
 import java.io.*;
 import java.util.Arrays;

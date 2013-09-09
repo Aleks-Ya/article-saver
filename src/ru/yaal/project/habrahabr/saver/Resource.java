@@ -2,6 +2,8 @@ package ru.yaal.project.habrahabr.saver;
 
 import org.apache.log4j.Logger;
 import ru.yaal.project.habrahabr.saver.parameters.IParameters;
+import ru.yaal.project.habrahabr.saver.url.UrlResolver;
+import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
 
 import java.io.IOException;
 import java.io.InputStream;

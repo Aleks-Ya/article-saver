@@ -2,7 +2,7 @@ package ru.yaal.project.habrahabr.saver.article;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import ru.yaal.project.habrahabr.saver.Resource;
-import ru.yaal.project.habrahabr.saver.UrlWrapper;
+import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

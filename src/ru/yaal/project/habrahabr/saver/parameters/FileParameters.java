@@ -1,7 +1,7 @@
 package ru.yaal.project.habrahabr.saver.parameters;
 
 import org.apache.log4j.Logger;
-import ru.yaal.project.habrahabr.saver.UrlWrapper;
+import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
 import ru.yaal.project.habrahabr.saver.article.ArticleFactory;
 import ru.yaal.project.habrahabr.saver.article.IArticle;
 

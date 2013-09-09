@@ -1,6 +1,8 @@
 package ru.yaal.project.habrahabr.saver;
 
 import org.testng.annotations.Test;
+import ru.yaal.project.habrahabr.saver.url.UrlResolver;
+import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
 
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
