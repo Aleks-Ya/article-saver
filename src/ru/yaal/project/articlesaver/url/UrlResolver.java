@@ -1,4 +1,4 @@
-package ru.yaal.project.habrahabr.saver.url;
+package ru.yaal.project.articlesaver.url;
 
 import org.apache.log4j.Logger;
 

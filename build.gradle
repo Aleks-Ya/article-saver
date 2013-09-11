@@ -12,21 +12,21 @@ repositories {
     mavenCentral()
 }
 jar {
-    def jarName = "HabrahabrArticleSaver"
+    def jarName = "ArticleSaver"
     baseName "${jarName}"
     manifest {
         attributes(
-                "Main-Class": "ru.yaal.project.habrahabr.saver.HabrahabrArticleSaver",
+                "Main-Class": "ru.yaal.project.articlesaver.ArticleSaver",
                 "Class-Path": "${jarName}.jar;./lib/*.jar"
         )
     }
 }
 apply plugin: 'application'
-mainClassName = "ru.yaal.project.habrahabr.saver.HabrahabrArticleSaver"
+mainClassName = "ru.yaal.project.articlesaver.ArticleSaver"
 distZip {
-    baseName = 'HabrahabrArticleSaver'
+    baseName = 'ArticleSaver'
 }
-def props = files('ArticleUrls.txt', 'HabrahabrArticleSaver.properties')
+def props = files('ArticleUrls.txt', 'ArticleSaver.properties')
 applicationDistribution.from(props) {
     into "bin"
 }

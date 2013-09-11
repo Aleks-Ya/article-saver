@@ -1,6 +1,6 @@
-package ru.yaal.project.habrahabr.saver.article;
+package ru.yaal.project.articlesaver.article;
 
-import ru.yaal.project.habrahabr.saver.Resource;
+import ru.yaal.project.articlesaver.Resource;
 
 import java.io.IOException;
 import java.nio.file.Path;

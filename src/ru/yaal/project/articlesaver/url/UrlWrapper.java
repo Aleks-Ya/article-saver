@@ -1,4 +1,4 @@
-package ru.yaal.project.habrahabr.saver.url;
+package ru.yaal.project.articlesaver.url;
 
 import java.io.IOException;
 import java.io.InputStream;

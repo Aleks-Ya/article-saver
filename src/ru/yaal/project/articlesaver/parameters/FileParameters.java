@@ -1,9 +1,9 @@
-package ru.yaal.project.habrahabr.saver.parameters;
+package ru.yaal.project.articlesaver.parameters;
 
 import org.apache.log4j.Logger;
-import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
-import ru.yaal.project.habrahabr.saver.article.ArticleFactory;
-import ru.yaal.project.habrahabr.saver.article.IArticle;
+import ru.yaal.project.articlesaver.url.UrlWrapper;
+import ru.yaal.project.articlesaver.article.ArticleFactory;
+import ru.yaal.project.articlesaver.article.IArticle;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -23,7 +23,7 @@ import static java.lang.String.format;
  * Time: 17:28
  */
 public class FileParameters implements IParameters {
-    public static final String DEFAULT_PROPERTIES_FILE_NAME = "HabrahabrArticleSaver.properties";
+    public static final String DEFAULT_PROPERTIES_FILE_NAME = "ArticleSaver.properties";
     public static final String DEFAULT_ARTICLES_FILE_NAME = "ArticleUrls.txt";
     public static final String TARGET_FOLDER_PROPERTY_NAME = "targetFolder";
     private static final Logger LOG = Logger.getLogger(FileParameters.class);

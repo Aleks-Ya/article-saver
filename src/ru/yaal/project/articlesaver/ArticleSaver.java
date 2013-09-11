@@ -1,13 +1,13 @@
-package ru.yaal.project.habrahabr.saver;
+package ru.yaal.project.articlesaver;
 
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
-import ru.yaal.project.habrahabr.saver.article.ArticleCallable;
-import ru.yaal.project.habrahabr.saver.article.IArticle;
-import ru.yaal.project.habrahabr.saver.parameters.ConsoleParameters;
-import ru.yaal.project.habrahabr.saver.parameters.FileParameters;
-import ru.yaal.project.habrahabr.saver.parameters.IParameters;
+import ru.yaal.project.articlesaver.article.ArticleCallable;
+import ru.yaal.project.articlesaver.article.IArticle;
+import ru.yaal.project.articlesaver.parameters.ConsoleParameters;
+import ru.yaal.project.articlesaver.parameters.FileParameters;
+import ru.yaal.project.articlesaver.parameters.IParameters;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,11 +30,11 @@ import static java.lang.String.format;
  * Date: 30.08.13
  * Time: 6:43
  */
-public class HabrahabrArticleSaver {
-    private static final Logger LOG = Logger.getLogger(HabrahabrArticleSaver.class);
+public class ArticleSaver {
+    private static final Logger LOG = Logger.getLogger(ArticleSaver.class);
 
     static {
-        DOMConfigurator.configure(HabrahabrArticleSaver.class.getResource("log4j.xml"));
+        DOMConfigurator.configure(ArticleSaver.class.getResource("log4j.xml"));
         String consoleEncoding = System.getProperty("consoleEncoding");
         if (consoleEncoding != null) {
             try {
@@ -78,6 +78,7 @@ public class HabrahabrArticleSaver {
         for (IArticle article : articles) {
             futures.add(es.submit(new ArticleCallable(article, targetFolder)));
         }
+        es.shutdown();
         while (futures.size() > 0) {
             for (Future<IArticle> future : new ArrayList<>(futures)) {
                 if (future.isDone()) {

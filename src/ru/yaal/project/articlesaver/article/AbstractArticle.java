@@ -1,4 +1,4 @@
-package ru.yaal.project.habrahabr.saver.article;
+package ru.yaal.project.articlesaver.article;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
@@ -6,9 +6,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlLink;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
 import org.apache.log4j.Logger;
-import ru.yaal.project.habrahabr.saver.Resource;
-import ru.yaal.project.habrahabr.saver.url.UrlResolver;
-import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
+import ru.yaal.project.articlesaver.Resource;
+import ru.yaal.project.articlesaver.url.UrlResolver;
+import ru.yaal.project.articlesaver.url.UrlWrapper;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

@@ -2,7 +2,7 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
     <appender name="fileAppender" class="org.apache.log4j.FileAppender">
-        <param name="File" value="HabrahabrSaverLog.log"/>
+        <param name="File" value="ArticleSaver.log"/>
         <param name="threshold" value="trace"/>
         <layout class="org.apache.log4j.SimpleLayout"/>
     </appender>
@@ -11,7 +11,7 @@
         <param name="threshold" value="info"/>
         <layout class="org.apache.log4j.SimpleLayout"/>
     </appender>
-    <logger name="ru.yaal.project.habrahabr">
+    <logger name="ru.yaal.project.articlesaver">
         <level value="debug"/>
     </logger>
     <root>

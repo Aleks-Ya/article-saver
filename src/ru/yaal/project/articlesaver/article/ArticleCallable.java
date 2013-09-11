@@ -1,7 +1,7 @@
-package ru.yaal.project.habrahabr.saver.article;
+package ru.yaal.project.articlesaver.article;
 
 import org.apache.log4j.Logger;
-import ru.yaal.project.habrahabr.saver.Resource;
+import ru.yaal.project.articlesaver.Resource;
 
 import java.nio.file.Path;
 import java.util.List;

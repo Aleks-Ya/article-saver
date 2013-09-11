@@ -1,9 +1,9 @@
-package ru.yaal.project.habrahabr.saver.parameters;
+package ru.yaal.project.articlesaver.parameters;
 
 import org.apache.log4j.Logger;
-import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
-import ru.yaal.project.habrahabr.saver.article.ArticleFactory;
-import ru.yaal.project.habrahabr.saver.article.IArticle;
+import ru.yaal.project.articlesaver.url.UrlWrapper;
+import ru.yaal.project.articlesaver.article.ArticleFactory;
+import ru.yaal.project.articlesaver.article.IArticle;
 
 import java.io.IOException;
 import java.nio.file.Path;

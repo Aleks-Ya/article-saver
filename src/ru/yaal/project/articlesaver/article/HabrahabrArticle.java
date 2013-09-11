@@ -1,13 +1,13 @@
-package ru.yaal.project.habrahabr.saver.article;
+package ru.yaal.project.articlesaver.article;
 
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import ru.yaal.project.habrahabr.saver.Resource;
-import ru.yaal.project.habrahabr.saver.parameters.IParameters;
-import ru.yaal.project.habrahabr.saver.url.UrlResolver;
-import ru.yaal.project.habrahabr.saver.url.UrlWrapper;
+import ru.yaal.project.articlesaver.Resource;
+import ru.yaal.project.articlesaver.parameters.IParameters;
+import ru.yaal.project.articlesaver.url.UrlResolver;
+import ru.yaal.project.articlesaver.url.UrlWrapper;
 
 import java.util.List;
 
