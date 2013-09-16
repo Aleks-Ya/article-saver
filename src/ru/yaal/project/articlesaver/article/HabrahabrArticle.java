@@ -12,7 +12,7 @@ import ru.yaal.project.articlesaver.url.UrlWrapper;
 import java.util.List;
 
 /**
- * Статья Habrahabr.
+ * РЎС‚Р°С‚СЊСЏ Habrahabr.
  * User: Aleks
  * Date: 03.09.13
  * Time: 6:52

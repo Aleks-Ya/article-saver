@@ -11,7 +11,7 @@ import ru.yaal.project.articlesaver.url.UrlWrapper;
 import java.util.List;
 
 /**
- * Статья Wikipedia.
+ * РЎС‚Р°С‚СЊСЏ Wikipedia.
  * User: Aleks
  * Date: 09.09.13
  * Time: 11:20

@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 /**
- * Статья на сайте (страница сайта).
+ * РЎС‚Р°С‚СЊСЏ РЅР° СЃР°Р№С‚Рµ (СЃС‚СЂР°РЅРёС†Р° СЃР°Р№С‚Р°).
  * User: Aleks
  * Date: 09.09.13
  * Time: 9:54

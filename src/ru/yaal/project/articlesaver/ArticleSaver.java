@@ -25,7 +25,7 @@ import java.util.concurrent.Future;
 import static java.lang.String.format;
 
 /**
- * Запускает закачку статей с habrahabr.ru
+ * Р—Р°РїСѓСЃРєР°РµС‚ Р·Р°РєР°С‡РєСѓ СЃС‚Р°С‚РµР№ СЃ habrahabr.ru
  * User: Aleks
  * Date: 30.08.13
  * Time: 6:43
@@ -48,24 +48,24 @@ public class ArticleSaver {
     }
 
     /**
-     * @param args Номера постов (например, чтобы скачать "http://habrahabr.ru/post/157165/", нужно ввести "157165").
+     * @param args РќРѕРјРµСЂР° РїРѕСЃС‚РѕРІ (РЅР°РїСЂРёРјРµСЂ, С‡С‚РѕР±С‹ СЃРєР°С‡Р°С‚СЊ "http://habrahabr.ru/post/157165/", РЅСѓР¶РЅРѕ РІРІРµСЃС‚Рё "157165").
      */
     public static void main(String[] args) {
         try {
             long start = System.currentTimeMillis();
-            LOG.debug(format("Начало работы: %s", SimpleDateFormat.
+            LOG.debug(format("РќР°С‡Р°Р»Рѕ СЂР°Р±РѕС‚С‹: %s", SimpleDateFormat.
                     getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(start)));
-            LOG.debug(format("Параметры приложения: %s", Arrays.deepToString(args)));
+            LOG.debug(format("РџР°СЂР°РјРµС‚СЂС‹ РїСЂРёР»РѕР¶РµРЅРёСЏ: %s", Arrays.deepToString(args)));
             IParameters parameters = parseParameters(args);
             Path targetFolder = parameters.getTargetFolder();
-            LOG.info(format("Целевая папка: %s", targetFolder.toString()));
+            LOG.info(format("Р¦РµР»РµРІР°СЏ РїР°РїРєР°: %s", targetFolder.toString()));
             List<IArticle> articles = parameters.getArticles();
-            LOG.info(format("Статей для загрузки: %d", articles.size()));
+            LOG.info(format("РЎС‚Р°С‚РµР№ РґР»СЏ Р·Р°РіСЂСѓР·РєРё: %d", articles.size()));
             loadArticles(targetFolder, articles);
             long finish = System.currentTimeMillis();
-            LOG.debug(format("Конец работы: %s", SimpleDateFormat.
+            LOG.debug(format("РљРѕРЅРµС† СЂР°Р±РѕС‚С‹: %s", SimpleDateFormat.
                     getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(finish)));
-            LOG.info(format("Длительность работы: %d сек.", (finish - start) / 1000));
+            LOG.info(format("Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ СЂР°Р±РѕС‚С‹: %d СЃРµРє.", (finish - start) / 1000));
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }

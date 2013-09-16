@@ -17,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import static java.lang.String.format;
 
 /**
- * Ресурс, на который ссылается html-страница со статьей (изображение, CSS, JavaScript).
+ * Р РµСЃСѓСЂСЃ, РЅР° РєРѕС‚РѕСЂС‹Р№ СЃСЃС‹Р»Р°РµС‚СЃСЏ html-СЃС‚СЂР°РЅРёС†Р° СЃРѕ СЃС‚Р°С‚СЊРµР№ (РёР·РѕР±СЂР°Р¶РµРЅРёРµ, CSS, JavaScript).
  * User: Aleks
  * Date: 03.09.13
  * Time: 7:09
@@ -43,7 +43,7 @@ public final class Resource {
                 Files.copy(is, target);
             }
         } else {
-            LOG.debug(format("%s уже загружен: %s", toString(), target));
+            LOG.debug(format("%s СѓР¶Рµ Р·Р°РіСЂСѓР¶РµРЅ: %s", toString(), target));
         }
     }
 
@@ -54,7 +54,7 @@ public final class Resource {
             digest.update(fullUrl.toUrlString().getBytes());
             result = hashToString(digest.digest()).replaceAll("\\s*", "");
         } catch (NoSuchAlgorithmException e) {
-            LOG.error(format("Алгоритм sha-1 не поддерживается, использую Object#hashCode()."), e);
+            LOG.error(format("РђР»РіРѕСЂРёС‚Рј sha-1 РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ, РёСЃРїРѕР»СЊР·СѓСЋ Object#hashCode()."), e);
             result = String.valueOf(fullUrl.toUrlString().hashCode());
         }
         return result;
@@ -72,7 +72,7 @@ public final class Resource {
 
     @Override
     public String toString() {
-        return format("[Ресурс originalUrl=%s]", originalUrl);
+        return format("[Р РµСЃСѓСЂСЃ originalUrl=%s]", originalUrl);
     }
 
     public String getOriginalUrl() {

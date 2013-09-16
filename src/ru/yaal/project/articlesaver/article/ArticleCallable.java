@@ -10,7 +10,7 @@ import java.util.concurrent.Callable;
 import static java.lang.String.format;
 
 /**
- * Загруажет статью и сохраняет ее на диск в отдельном потоке.
+ * Р—Р°РіСЂСѓР°Р¶РµС‚ СЃС‚Р°С‚СЊСЋ Рё СЃРѕС…СЂР°РЅСЏРµС‚ РµРµ РЅР° РґРёСЃРє РІ РѕС‚РґРµР»СЊРЅРѕРј РїРѕС‚РѕРєРµ.
  * User: Aleks
  * Date: 11.09.13
  * Time: 9:21
@@ -27,7 +27,7 @@ public class ArticleCallable implements Callable<IArticle> {
 
     @Override
     public IArticle call() throws Exception {
-        LOG.debug(format("Запускаю поток для загрузки статьи %s", article));
+        LOG.debug(format("Р—Р°РїСѓСЃРєР°СЋ РїРѕС‚РѕРє РґР»СЏ Р·Р°РіСЂСѓР·РєРё СЃС‚Р°С‚СЊРё %s", article));
         article.save(targetFolder);
         List<Resource> resources = article.getResources();
         for (Resource resource : resources) {

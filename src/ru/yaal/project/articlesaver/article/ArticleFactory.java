@@ -3,8 +3,8 @@ package ru.yaal.project.articlesaver.article;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
 /**
- * Фабрика IArticle.
- * По URL статьи определяет сайт и возвращает подходящую реализацию IArticle.
+ * Р¤Р°Р±СЂРёРєР° IArticle.
+ * РџРѕ URL СЃС‚Р°С‚СЊРё РѕРїСЂРµРґРµР»СЏРµС‚ СЃР°Р№С‚ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕРґС…РѕРґСЏС‰СѓСЋ СЂРµР°Р»РёР·Р°С†РёСЋ IArticle.
  * User: Aleks
  * Date: 09.09.13
  * Time: 10:16

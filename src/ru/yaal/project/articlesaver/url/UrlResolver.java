@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 import static java.lang.String.format;
 
 /**
- * Разрешает относительный URL к базовому URL.
+ * Р Р°Р·СЂРµС€Р°РµС‚ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅС‹Р№ URL Рє Р±Р°Р·РѕРІРѕРјСѓ URL.
  * User: Aleks
  * Date: 09.09.13
  * Time: 12:11
@@ -29,7 +29,7 @@ public class UrlResolver {
         } else {
             fullUrl = url;
         }
-        LOG.debug(format("Найден ресурс: %s", fullUrl));
+        LOG.debug(format("РќР°Р№РґРµРЅ СЂРµСЃСѓСЂСЃ: %s", fullUrl));
         return new UrlWrapper(fullUrl);
     }
 }

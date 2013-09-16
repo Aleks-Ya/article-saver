@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 import static java.lang.String.format;
 
 /**
- * Обрабатывает параметры приложения из конфигурационных файлов.
+ * РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ РїР°СЂР°РјРµС‚СЂС‹ РїСЂРёР»РѕР¶РµРЅРёСЏ РёР· РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹С… С„Р°Р№Р»РѕРІ.
  * User: Aleks
  * Date: 07.09.13
  * Time: 17:28
@@ -33,8 +33,8 @@ public class FileParameters implements IParameters {
 
     public FileParameters(File propertiesFile, File articlesFile) throws IOException {
         this(new FileReader(propertiesFile), new FileReader(articlesFile));
-        LOG.debug(format("Загружаю целевую папку из %s.", propertiesFile));
-        LOG.debug(format("Загружаю URL статей из %s", articlesFile));
+        LOG.debug(format("Р—Р°РіСЂСѓР¶Р°СЋ С†РµР»РµРІСѓСЋ РїР°РїРєСѓ РёР· %s.", propertiesFile));
+        LOG.debug(format("Р—Р°РіСЂСѓР¶Р°СЋ URL СЃС‚Р°С‚РµР№ РёР· %s", articlesFile));
     }
 
     public FileParameters(Reader propertiesFile, Reader articlesFile) throws IOException {
@@ -57,7 +57,7 @@ public class FileParameters implements IParameters {
                 try {
                     result.add(ArticleFactory.getArticle(new UrlWrapper(line)));
                 } catch (MalformedURLException e) {
-                    LOG.warn(format("Пропускаю некорректную ссылку на статью: %s", line));
+                    LOG.warn(format("РџСЂРѕРїСѓСЃРєР°СЋ РЅРµРєРѕСЂСЂРµРєС‚РЅСѓСЋ СЃСЃС‹Р»РєСѓ РЅР° СЃС‚Р°С‚СЊСЋ: %s", line));
                 }
             }
         }

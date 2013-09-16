@@ -23,7 +23,7 @@ import java.util.List;
 import static java.lang.String.format;
 
 /**
- * Обычная статья (сохраняет html-страницу полностью).
+ * РћР±С‹С‡РЅР°СЏ СЃС‚Р°С‚СЊСЏ (СЃРѕС…СЂР°РЅСЏРµС‚ html-СЃС‚СЂР°РЅРёС†Сѓ РїРѕР»РЅРѕСЃС‚СЊСЋ).
  * User: Aleks
  * Date: 03.09.13
  * Time: 6:52
@@ -55,12 +55,12 @@ public abstract class AbstractArticle implements IArticle {
             articleHtml = fetchArticleHtml(page, resources);
             articleTitle = fetchArticleTitle(page);
             isLoaded = true;
-            LOG.info(format("Загружена статья: \"%s\"", getName()));
+            LOG.info(format("Р—Р°РіСЂСѓР¶РµРЅР° СЃС‚Р°С‚СЊСЏ: \"%s\"", getName()));
         }
     }
 
     private HtmlPage loadPage(UrlWrapper url) throws IOException {
-        LOG.debug(format("Загружаю статью: %s", url));
+        LOG.debug(format("Р—Р°РіСЂСѓР¶Р°СЋ СЃС‚Р°С‚СЊСЋ: %s", url));
         final WebClient webClient = new WebClient();
         webClient.getOptions().setThrowExceptionOnScriptError(false);
         HtmlPage result = webClient.getPage(url.toUrl());
@@ -81,11 +81,11 @@ public abstract class AbstractArticle implements IArticle {
     @Override
     public final void save(Path targetFolder) throws IOException {
         Path target = Paths.get(targetFolder.toAbsolutePath() + "\\" + getName() + ".html");
-        LOG.debug(format("Сохраняю статью: \"%s\"", target.toAbsolutePath()));
+        LOG.debug(format("РЎРѕС…СЂР°РЅСЏСЋ СЃС‚Р°С‚СЊСЋ: \"%s\"", target.toAbsolutePath()));
         if (!target.toFile().exists()) {
             Files.write(target, Arrays.asList(articleHtml), Charset.forName("UTF-8"));
         } else {
-            LOG.debug(format("%s уже загружен: %s", toString(), target));
+            LOG.debug(format("%s СѓР¶Рµ Р·Р°РіСЂСѓР¶РµРЅ: %s", toString(), target));
         }
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
 import static java.lang.String.format;
 
 /**
- * Обрабатывает параметры приложения из командной строки.
+ * РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ РїР°СЂР°РјРµС‚СЂС‹ РїСЂРёР»РѕР¶РµРЅРёСЏ РёР· РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё.
  * User: Aleks
  * Date: 03.09.13
  * Time: 6:51
@@ -29,7 +29,7 @@ public final class ConsoleParameters implements IParameters {
     public ConsoleParameters(String[] args) throws IOException {
         targetFolder = parseTargetFolder(args);
         articles = parseArticles(args);
-        LOG.info("Параметры: " + toString());
+        LOG.info("РџР°СЂР°РјРµС‚СЂС‹: " + toString());
     }
 
     private List<IArticle> parseArticles(String[] args) throws IOException {
@@ -45,14 +45,14 @@ public final class ConsoleParameters implements IParameters {
     private Path parseTargetFolder(String[] args) {
         Path result;
         if (args == null || args.length < 2) {
-            throw new IllegalArgumentException("Не указаны параметры приложения: habrsaver d:/habr_articles 156395 183494");
+            throw new IllegalArgumentException("РќРµ СѓРєР°Р·Р°РЅС‹ РїР°СЂР°РјРµС‚СЂС‹ РїСЂРёР»РѕР¶РµРЅРёСЏ: habrsaver d:/habr_articles 156395 183494");
         } else {
             result = Paths.get(args[0]);
             if (!result.toFile().exists()) {
-                throw new IllegalArgumentException(format("Целевая папка \"%s\" не существует.", result));
+                throw new IllegalArgumentException(format("Р¦РµР»РµРІР°СЏ РїР°РїРєР° \"%s\" РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.", result));
             }
             if (!result.toFile().isDirectory()) {
-                throw new IllegalArgumentException(format("Целевая папка \"%s\" является файлом.", result));
+                throw new IllegalArgumentException(format("Р¦РµР»РµРІР°СЏ РїР°РїРєР° \"%s\" СЏРІР»СЏРµС‚СЃСЏ С„Р°Р№Р»РѕРј.", result));
             }
         }
         return result;
@@ -70,6 +70,6 @@ public final class ConsoleParameters implements IParameters {
 
     @Override
     public String toString() {
-        return format("[Параметры (целевая папка=%s,количество статей=%d]", targetFolder, articles.size());
+        return format("[РџР°СЂР°РјРµС‚СЂС‹ (С†РµР»РµРІР°СЏ РїР°РїРєР°=%s,РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚Р°С‚РµР№=%d]", targetFolder, articles.size());
     }
 }

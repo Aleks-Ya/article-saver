@@ -8,8 +8,8 @@ import java.net.URL;
 import static java.lang.String.format;
 
 /**
- * Обертка для {link java.net.URL}.
- * Для возможности создания mock для final-класса URL.
+ * РћР±РµСЂС‚РєР° РґР»СЏ {link java.net.URL}.
+ * Р”Р»СЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё СЃРѕР·РґР°РЅРёСЏ mock РґР»СЏ final-РєР»Р°СЃСЃР° URL.
  * User: Aleks
  * Date: 09.09.13
  * Time: 9:34

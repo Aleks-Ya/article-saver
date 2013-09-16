@@ -8,7 +8,7 @@ import ru.yaal.project.articlesaver.url.UrlWrapper;
 import java.util.List;
 
 /**
- * Обычная статья (сохраняет html-страницу полностью).
+ * РћР±С‹С‡РЅР°СЏ СЃС‚Р°С‚СЊСЏ (СЃРѕС…СЂР°РЅСЏРµС‚ html-СЃС‚СЂР°РЅРёС†Сѓ РїРѕР»РЅРѕСЃС‚СЊСЋ).
  * User: Aleks
  * Date: 03.09.13
  * Time: 6:52
@@ -21,12 +21,12 @@ class CommonArticle extends AbstractArticle {
 
     @Override
     protected String fetchArticleHtml(HtmlPage page, List<Resource> resources) {
-        throw new UnsupportedOperationException("Не реализовано");
+        throw new UnsupportedOperationException("РќРµ СЂРµР°Р»РёР·РѕРІР°РЅРѕ");
     }
 
     @Override
     protected String fetchArticleTitle(HtmlPage page) {
-        throw new UnsupportedOperationException("Не реализовано");
+        throw new UnsupportedOperationException("РќРµ СЂРµР°Р»РёР·РѕРІР°РЅРѕ");
     }
 
 }
