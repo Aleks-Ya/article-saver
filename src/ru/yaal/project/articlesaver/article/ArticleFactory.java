@@ -11,12 +11,12 @@ import ru.yaal.project.articlesaver.url.UrlWrapper;
  */
 public class ArticleFactory {
     public static IArticle getArticle(UrlWrapper url) {
-        String host = url.getHost();
+        String host = url.getHost().replaceFirst(".*\\.(.+\\..+)","$1");//Оставляет домен 2-го уровня
         switch (host) {
             case "habrahabr.ru": {
                 return new HabrahabrArticle(url);
             }
-            case "ru.wikipedia.org": {
+            case "wikipedia.org": {
                 return new WikipediaArticle(url);
             }
             case "hh.ru": {

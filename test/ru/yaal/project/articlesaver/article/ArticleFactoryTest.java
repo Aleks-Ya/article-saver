@@ -1,5 +1,6 @@
 package ru.yaal.project.articlesaver.article;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
@@ -14,10 +15,33 @@ public class ArticleFactoryTest {
         assertTrue(ArticleFactory.getArticle(url) instanceof HabrahabrArticle);
     }
 
-    @Test
-    public void getWikipediaArticle() throws Exception {
-        UrlWrapper url = when(mock(UrlWrapper.class).getHost()).thenReturn("ru.wikipedia.org").getMock();
+    @Test(dataProvider = "wikipediaUrls")
+    public void getWikipediaArticle(String urlStr) throws Exception {
+        UrlWrapper url = when(mock(UrlWrapper.class).getHost()).thenReturn(urlStr).getMock();
         assertTrue(ArticleFactory.getArticle(url) instanceof WikipediaArticle);
+    }
+
+    @Test(dataProvider = "hhUrls")
+    public void getHeadHunterArticle(String urlStr) throws Exception {
+        UrlWrapper url = when(mock(UrlWrapper.class).getHost()).thenReturn(urlStr).getMock();
+        assertTrue(ArticleFactory.getArticle(url) instanceof HeadHunterArticle);
+    }
+
+    @DataProvider
+    public Object[][] wikipediaUrls() {
+        return new Object[][]{
+                {"wikipedia.org"},
+                {"ru.wikipedia.org"},
+                {"en.wikipedia.org"}
+        };
+    }
+
+    @DataProvider
+    public Object[][] hhUrls() {
+        return new Object[][]{
+                {"hh.ru"},
+                {"spb.hh.ru"}
+        };
     }
 
     @Test
