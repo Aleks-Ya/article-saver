@@ -1,8 +1,2 @@
+http://hh.ru/vacancy/8540977
 http://ru.wikipedia.org/wiki/Agile
-http://ru.wikipedia.org/wiki/Scrum
-http://ru.wikipedia.org/wiki/WHERE
-http://ru.wikipedia.org/wiki/JasperReports
-http://ru.wikipedia.org/wiki/Apache_Ant
-http://ru.wikipedia.org/wiki/JAX-WS
-http://ru.wikipedia.org/wiki/Enterprise_JavaBeans
-http://ru.wikipedia.org/wiki/JBoss

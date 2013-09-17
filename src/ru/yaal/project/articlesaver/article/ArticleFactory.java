@@ -19,6 +19,9 @@ public class ArticleFactory {
             case "ru.wikipedia.org": {
                 return new WikipediaArticle(url);
             }
+            case "hh.ru": {
+                return new HeadHunterArticle(url);
+            }
             default: {
                 return new CommonArticle(url);
             }
