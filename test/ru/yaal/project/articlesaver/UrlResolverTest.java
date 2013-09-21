@@ -1,4 +1,4 @@
-package ru.yaal.project.habrahabr.saver;
+package ru.yaal.project.articlesaver;
 
 import org.testng.annotations.Test;
 import ru.yaal.project.articlesaver.url.UrlResolver;
