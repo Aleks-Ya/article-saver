@@ -1,5 +1,6 @@
 package ru.yaal.project.articlesaver.article;
 
+import ru.yaal.project.articlesaver.url.Site;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
 /**
@@ -11,15 +12,15 @@ import ru.yaal.project.articlesaver.url.UrlWrapper;
  */
 public class ArticleFactory {
     public static IArticle getArticle(UrlWrapper url) {
-        String host = url.getHost().replaceFirst(".*\\.(.+\\..+)","$1");//Оставляет домен 2-го уровня
-        switch (host) {
-            case "habrahabr.ru": {
+        Site site = Site.resolve(url);
+        switch (site) {
+            case HABRAHABR: {
                 return new HabrahabrArticle(url);
             }
-            case "wikipedia.org": {
+            case WIKIPEDIA: {
                 return new WikipediaArticle(url);
             }
-            case "hh.ru": {
+            case HEAD_HUNTER: {
                 return new HeadHunterArticle(url);
             }
             default: {
