@@ -3,7 +3,7 @@ package ru.yaal.project.articlesaver;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
-import ru.yaal.project.articlesaver.article.ArticleCallable;
+import ru.yaal.project.articlesaver.article.ArticleLoader;
 import ru.yaal.project.articlesaver.article.IArticle;
 import ru.yaal.project.articlesaver.parameters.ConsoleParameters;
 import ru.yaal.project.articlesaver.parameters.FileParameters;
@@ -15,12 +15,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import static java.lang.String.format;
 
@@ -61,31 +57,21 @@ public class ArticleSaver {
             LOG.info(format("Целевая папка: %s", targetFolder.toString()));
             List<IArticle> articles = parameters.getArticles();
             LOG.info(format("Статей для загрузки: %d", articles.size()));
-            loadArticles(targetFolder, articles);
-            long finish = System.currentTimeMillis();
-            LOG.debug(format("Конец работы: %s", SimpleDateFormat.
-                    getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(finish)));
-            LOG.info(format("Длительность работы: %d сек.", (finish - start) / 1000));
+            ArticleLoader loader = new ArticleLoader(targetFolder);
+            if (articles.size() > 0) {
+                loader.load(articles);
+                loader.stop();
+                long finish = System.currentTimeMillis();
+                LOG.debug(format("Конец работы: %s", SimpleDateFormat.
+                        getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(finish)));
+                LOG.info(format("Длительность работы: %d сек.", (finish - start) / 1000));
+            } else {
+                LOG.info("Перехожу в режим слушателя буфера обмена");
+                new ClipboardListener(loader);
+            }
+            LOG.debug("Выход из приложения");
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
-        }
-    }
-
-    private static void loadArticles(Path targetFolder, List<IArticle> articles) throws InterruptedException {
-        final int threadPoolSize = 30;
-        ExecutorService es = Executors.newFixedThreadPool(threadPoolSize);
-        List<Future<IArticle>> futures = new ArrayList<>();
-        for (IArticle article : articles) {
-            futures.add(es.submit(new ArticleCallable(article, targetFolder)));
-        }
-        es.shutdown();
-        while (futures.size() > 0) {
-            for (Future<IArticle> future : new ArrayList<>(futures)) {
-                if (future.isDone()) {
-                    futures.remove(future);
-                }
-            }
-            Thread.sleep(500);
         }
     }
 

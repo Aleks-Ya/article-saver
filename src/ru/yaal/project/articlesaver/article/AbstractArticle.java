@@ -125,6 +125,11 @@ public abstract class AbstractArticle implements IArticle {
         return resources;
     }
 
+    @Override
+    public UrlWrapper getUrl() {
+        return url;
+    }
+
     private void addResource(String src, List<Resource> resources) throws MalformedURLException {
         if (src != null && !src.isEmpty()) {
             resources.add(new Resource(src, resolver));

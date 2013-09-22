@@ -4,6 +4,7 @@
     <appender name="fileAppender" class="org.apache.log4j.FileAppender">
         <param name="File" value="ArticleSaver.log"/>
         <param name="threshold" value="trace"/>
+        <param name="Append" value="false"/>
         <layout class="org.apache.log4j.SimpleLayout"/>
     </appender>
     <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
@@ -12,7 +13,7 @@
         <layout class="org.apache.log4j.SimpleLayout"/>
     </appender>
     <logger name="ru.yaal.project.articlesaver">
-        <level value="debug"/>
+        <level value="trace"/>
     </logger>
     <root>
         <level value="off"/>
