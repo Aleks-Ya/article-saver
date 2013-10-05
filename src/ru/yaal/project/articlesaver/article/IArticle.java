@@ -3,8 +3,8 @@ package ru.yaal.project.articlesaver.article;
 import ru.yaal.project.articlesaver.Resource;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -18,7 +18,7 @@ public interface IArticle {
 
     List<Resource> getResources() throws IOException;
 
-    void save(Path targetFolder) throws IOException;
+    void save(File targetFolder) throws IOException;
 
     UrlWrapper getUrl();
 }

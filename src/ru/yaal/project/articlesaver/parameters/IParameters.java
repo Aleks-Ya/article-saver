@@ -2,7 +2,7 @@ package ru.yaal.project.articlesaver.parameters;
 
 import ru.yaal.project.articlesaver.article.IArticle;
 
-import java.nio.file.Path;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -15,7 +15,7 @@ public interface IParameters {
     String BASE_URL = "http://habrahabr.ru";
     String RESOURCES_DIR = "/resources";
 
-    Path getTargetFolder();
+    File getTargetFolder();
 
     List<IArticle> getArticles();
 }

@@ -2,8 +2,8 @@ package ru.yaal.project.articlesaver.article;
 
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -23,9 +23,9 @@ public class ArticleLoader {
     private static final int THREAD_POOL_SIZE = 30;
     private final List<Future<IArticle>> futures = new ArrayList<>();
     private final ExecutorService es = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-    private final Path targetFolder;
+    private final File targetFolder;
 
-    public ArticleLoader(Path targetFolder) {
+    public ArticleLoader(File targetFolder) {
         this.targetFolder = targetFolder;
     }
 

@@ -1,13 +1,12 @@
 package ru.yaal.project.articlesaver.parameters;
 
 import org.apache.log4j.Logger;
-import ru.yaal.project.articlesaver.url.UrlWrapper;
 import ru.yaal.project.articlesaver.article.ArticleFactory;
 import ru.yaal.project.articlesaver.article.IArticle;
+import ru.yaal.project.articlesaver.url.UrlWrapper;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +22,7 @@ import static java.lang.String.format;
 public final class ConsoleParameters implements IParameters {
     private static final Logger LOG = Logger.getLogger(ConsoleParameters.class);
     private static final String URL_TEMPLATE = BASE_URL + "/post/%s/";
-    private final Path targetFolder;
+    private final File targetFolder;
     private List<IArticle> articles;
 
     public ConsoleParameters(String[] args) throws IOException {
@@ -42,24 +41,18 @@ public final class ConsoleParameters implements IParameters {
         return result;
     }
 
-    private Path parseTargetFolder(String[] args) {
-        Path result;
+    private File parseTargetFolder(String[] args) {
+        File result;
         if (args == null || args.length < 2) {
             throw new IllegalArgumentException("Не указаны параметры приложения: habrsaver d:/habr_articles 156395 183494");
         } else {
-            result = Paths.get(args[0]);
-            if (!result.toFile().exists()) {
-                throw new IllegalArgumentException(format("Целевая папка \"%s\" не существует.", result));
-            }
-            if (!result.toFile().isDirectory()) {
-                throw new IllegalArgumentException(format("Целевая папка \"%s\" является файлом.", result));
-            }
+            result = FilePathParser.parse(args[0]);
         }
         return result;
     }
 
     @Override
-    public Path getTargetFolder() {
+    public File getTargetFolder() {
         return targetFolder;
     }
 

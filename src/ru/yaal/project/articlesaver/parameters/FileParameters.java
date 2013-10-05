@@ -1,17 +1,14 @@
 package ru.yaal.project.articlesaver.parameters;
 
 import org.apache.log4j.Logger;
-import ru.yaal.project.articlesaver.url.UrlWrapper;
 import ru.yaal.project.articlesaver.article.ArticleFactory;
 import ru.yaal.project.articlesaver.article.IArticle;
+import ru.yaal.project.articlesaver.url.UrlWrapper;
 
 import java.io.*;
 import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.regex.Pattern;
 
 import static java.lang.String.format;
@@ -28,7 +25,7 @@ public class FileParameters implements IParameters {
     public static final String TARGET_FOLDER_PROPERTY_NAME = "targetFolder";
     private static final Logger LOG = Logger.getLogger(FileParameters.class);
     private static final Pattern EMPTY_LINE_PATTERN = Pattern.compile("^\\s*$");
-    private Path targetFolder;
+    private File targetFolder;
     private List<IArticle> articles;
 
     public FileParameters(File propertiesFile, File articlesFile) throws IOException {
@@ -42,10 +39,24 @@ public class FileParameters implements IParameters {
         articles = loadArticles(articlesFile);
     }
 
-    private Path loadTargetFolder(Reader propertiesFile) throws IOException {
-        Properties p = new Properties();
-        p.load(propertiesFile);
-        return Paths.get(p.getProperty(TARGET_FOLDER_PROPERTY_NAME));
+    private File loadTargetFolder(Reader propertiesFile) throws IOException {
+        StringBuilder line = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(propertiesFile)) {
+            int first;
+            while ((first = br.read()) != -1) {
+                if (first != '\\') {
+                    line.append((char) first);
+                } else {
+                    line.append("\\");
+                    int second = br.read();
+                    if (second != -1) {
+                        line.append((char) second);
+                    }
+                }
+            }
+        }
+        String path = line.toString().split("targetFolder=")[1];
+        return FilePathParser.parse(path);
     }
 
     private List<IArticle> loadArticles(Reader articlesFile) throws IOException {
@@ -65,7 +76,7 @@ public class FileParameters implements IParameters {
     }
 
     @Override
-    public Path getTargetFolder() {
+    public File getTargetFolder() {
         return targetFolder;
     }
 

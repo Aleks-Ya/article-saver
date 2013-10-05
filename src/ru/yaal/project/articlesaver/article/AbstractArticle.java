@@ -10,6 +10,7 @@ import ru.yaal.project.articlesaver.Resource;
 import ru.yaal.project.articlesaver.url.UrlResolver;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.charset.Charset;
@@ -79,8 +80,8 @@ public abstract class AbstractArticle implements IArticle {
     }
 
     @Override
-    public final void save(Path targetFolder) throws IOException {
-        Path target = Paths.get(targetFolder.toAbsolutePath() + "\\" + getName() + ".html");
+    public final void save(File targetFolder) throws IOException {
+        Path target = Paths.get(targetFolder.getAbsolutePath() + "\\" + getName() + ".html");
         LOG.debug(format("Сохраняю статью: \"%s\"", target.toAbsolutePath()));
         if (!target.toFile().exists()) {
             Files.write(target, Arrays.asList(articleHtml), Charset.forName("UTF-8"));

@@ -2,14 +2,14 @@ package ru.yaal.project.articlesaver.article;
 
 import org.testng.annotations.Test;
 
-import java.nio.file.Path;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
 
 public class ArticleLoaderTest {
-    Path path = mock(Path.class);
+    File path = mock(File.class);
 
     private static List<IArticle> getArticleMocks(int size) {
         List<IArticle> articles = new ArrayList<>();

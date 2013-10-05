@@ -3,7 +3,7 @@ package ru.yaal.project.articlesaver.article;
 import org.apache.log4j.Logger;
 import ru.yaal.project.articlesaver.Resource;
 
-import java.nio.file.Path;
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -18,9 +18,9 @@ import static java.lang.String.format;
 public class ArticleCallable implements Callable<IArticle> {
     private static final Logger LOG = Logger.getLogger(AutoCloseable.class);
     private IArticle article;
-    private Path targetFolder;
+    private File targetFolder;
 
-    public ArticleCallable(IArticle article, Path targetFolder) {
+    public ArticleCallable(IArticle article, File targetFolder) {
         this.article = article;
         this.targetFolder = targetFolder;
     }

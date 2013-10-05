@@ -5,6 +5,7 @@ import ru.yaal.project.articlesaver.parameters.IParameters;
 import ru.yaal.project.articlesaver.url.UrlResolver;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -32,8 +33,8 @@ public final class Resource {
         this.fullUrl = resolver.resolve(originalUrl);
     }
 
-    public void save(Path targetFolder) throws IOException {
-        Path resourceDir = Paths.get(targetFolder.toAbsolutePath() + IParameters.RESOURCES_DIR);
+    public void save(File targetFolder) throws IOException {
+        Path resourceDir = Paths.get(targetFolder.getAbsolutePath() + IParameters.RESOURCES_DIR);
         if (!resourceDir.toFile().exists()) {
             Files.createDirectories(resourceDir);
         }

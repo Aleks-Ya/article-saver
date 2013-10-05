@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
-import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -53,7 +52,7 @@ public class ArticleSaver {
                     getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM).format(start)));
             LOG.debug(format("Параметры приложения: %s", Arrays.deepToString(args)));
             IParameters parameters = parseParameters(args);
-            Path targetFolder = parameters.getTargetFolder();
+            File targetFolder = parameters.getTargetFolder();
             createTargetFolder(targetFolder);
             LOG.info(format("Целевая папка: %s", targetFolder.toString()));
             List<IArticle> articles = parameters.getArticles();
@@ -79,13 +78,12 @@ public class ArticleSaver {
     /**
      * Если папка не существует, создает ее (на всю глубину).
      */
-    private static void createTargetFolder(Path targetFolder) {
-        File target = targetFolder.toFile();
-        if (!target.exists()) {
-            boolean created = target.mkdirs();
-            LOG.debug(format("Создана целевая папка (результат %b): %s", created, target));
+    private static void createTargetFolder(File targetFolder) {
+        if (!targetFolder.exists()) {
+            boolean created = targetFolder.mkdirs();
+            LOG.debug(format("Создана целевая папка (результат %b): %s", created, targetFolder));
         } else {
-            LOG.debug(format("Создана целевая папка уже существует: %s", target));
+            LOG.debug(format("Создана целевая папка уже существует: %s", targetFolder));
         }
     }
 
