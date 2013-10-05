@@ -54,6 +54,7 @@ public class ArticleSaver {
             LOG.debug(format("Параметры приложения: %s", Arrays.deepToString(args)));
             IParameters parameters = parseParameters(args);
             Path targetFolder = parameters.getTargetFolder();
+            createTargetFolder(targetFolder);
             LOG.info(format("Целевая папка: %s", targetFolder.toString()));
             List<IArticle> articles = parameters.getArticles();
             LOG.info(format("Статей для загрузки: %d", articles.size()));
@@ -72,6 +73,19 @@ public class ArticleSaver {
             LOG.debug("Выход из приложения");
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Если папка не существует, создает ее (на всю глубину).
+     */
+    private static void createTargetFolder(Path targetFolder) {
+        File target = targetFolder.toFile();
+        if (!target.exists()) {
+            boolean created = target.mkdirs();
+            LOG.debug(format("Создана целевая папка (результат %b): %s", created, target));
+        } else {
+            LOG.debug(format("Создана целевая папка уже существует: %s", target));
         }
     }
 
