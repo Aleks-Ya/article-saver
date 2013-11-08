@@ -7,7 +7,11 @@ import ru.yaal.project.articlesaver.url.Site;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
 import java.awt.*;
-import java.awt.datatransfer.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -22,7 +26,7 @@ import static java.lang.String.format;
  * Date: 21.09.13
  * Time: 11:29
  */
-public class ClipboardListener extends Thread implements ClipboardOwner {
+class ClipboardListener extends Thread implements ClipboardOwner {
     private static final Logger LOG = Logger.getLogger(ClipboardListener.class);
     private final ArticleLoader loader;
 
@@ -80,7 +84,7 @@ public class ClipboardListener extends Thread implements ClipboardOwner {
                     }
                 }
                 r.close();
-            } catch (UnsupportedFlavorException | IOException | InterruptedException e) {
+            } catch (UnsupportedFlavorException | IOException e) {
                 LOG.error(e.getMessage(), e);
             }
         } else {

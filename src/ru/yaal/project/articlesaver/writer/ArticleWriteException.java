@@ -7,7 +7,7 @@ import java.io.IOException;
  * User: a.yablokov
  * Date: 08.11.13
  */
-public class ArticleWriteException extends Exception {
+class ArticleWriteException extends Exception {
     public ArticleWriteException(String message, IOException cause) {
         super(message, cause);
     }

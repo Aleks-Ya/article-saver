@@ -19,7 +19,7 @@ import static java.lang.String.format;
  * Date: 03.09.13
  * Time: 7:09
  */
-public final class Resource implements IResource {
+public final class Resource extends AbstractResource {
     private static final Logger LOG = Logger.getLogger(Resource.class);
     private final String originalUrl;
     private final UrlWrapper fullUrl;
@@ -28,6 +28,11 @@ public final class Resource implements IResource {
     public Resource(String originalUrl, UrlResolver resolver) throws MalformedURLException {
         this.originalUrl = originalUrl;
         this.fullUrl = resolver.resolve(originalUrl);
+    }
+
+    @Override
+    public String getOriginalUrl() {
+        return originalUrl;
     }
 
     @Override
@@ -52,16 +57,6 @@ public final class Resource implements IResource {
             result += Integer.toString(v, 16).toUpperCase() + " ";
         }
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return format("[Ресурс originalUrl=%s]", originalUrl);
-    }
-
-    @Override
-    public String getOriginalUrl() {
-        return originalUrl;
     }
 
     @Override

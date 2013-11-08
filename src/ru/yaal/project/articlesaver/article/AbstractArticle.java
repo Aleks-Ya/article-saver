@@ -44,7 +44,7 @@ public abstract class AbstractArticle implements IArticle {
     }
 
     @Override
-    public final List<IResource> getResources() throws IOException {
+    public final List<? extends IResource> getResources() throws IOException {
         load();
         return resources;
     }

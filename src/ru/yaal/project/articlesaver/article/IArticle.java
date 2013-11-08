@@ -4,6 +4,7 @@ import ru.yaal.project.articlesaver.resource.IResource;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 /**
@@ -13,14 +14,23 @@ import java.util.List;
  * Time: 9:54
  */
 public interface IArticle {
+    /**
+     * Возвращает название статьи.
+     */
     String getName() throws IOException;
 
-    List<IResource> getResources() throws IOException;
+    /**
+     * Возвращает ресурсы, на которые ссылается статья.
+     */
+    List<? extends IResource> getResources() throws IOException;
 
     /**
      * Возвращает HTML-код статьи.
      */
     String getHtml();
 
-    UrlWrapper getUrl();
+    /**
+     * Возвращает url, с которого была скачана статья.
+     */
+    UrlWrapper getUrl() throws MalformedURLException;
 }

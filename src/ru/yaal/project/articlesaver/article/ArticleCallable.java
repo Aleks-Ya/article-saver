@@ -15,7 +15,7 @@ import static java.lang.String.format;
  * Date: 11.09.13
  * Time: 9:21
  */
-public class ArticleCallable implements Callable<IArticle> {
+class ArticleCallable implements Callable<IArticle> {
     private static final Logger LOG = Logger.getLogger(AutoCloseable.class);
     private final IArticle article;
     private final IArticleWriter articleWriter;

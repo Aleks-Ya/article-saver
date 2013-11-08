@@ -29,12 +29,12 @@ public class ArticleLoader {
         this.targetFolder = targetFolder;
     }
 
-    public void load(IArticle article) throws InterruptedException, IOException {
+    public void load(IArticle article) throws IOException {
         LOG.info(format("Запланировал загрузку: %s", article.getUrl()));
         futures.add(es.submit(new ArticleCallable(article, targetFolder)));
     }
 
-    public void load(List<IArticle> articles) throws InterruptedException, IOException {
+    public void load(List<IArticle> articles) throws IOException {
         for (IArticle article : articles) {
             load(article);
         }

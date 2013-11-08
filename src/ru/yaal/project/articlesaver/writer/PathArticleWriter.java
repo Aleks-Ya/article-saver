@@ -40,7 +40,7 @@ public class PathArticleWriter implements IArticleWriter {
             } else {
                 LOG.debug(format("%s уже загружен: %s", toString(), target));
             }
-            List<IResource> resources = article.getResources();
+            List<? extends IResource> resources = article.getResources();
             for (IResource resource : resources) {
                 saveResource(resource);
             }
