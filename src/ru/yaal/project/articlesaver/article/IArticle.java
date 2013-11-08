@@ -18,6 +18,11 @@ public interface IArticle {
 
     List<Resource> getResources() throws IOException;
 
+    /**
+     * Возвращает HTML-код статьи.
+     */
+    String getHtml();
+
     void save(Path targetFolder) throws IOException;
 
     UrlWrapper getUrl();

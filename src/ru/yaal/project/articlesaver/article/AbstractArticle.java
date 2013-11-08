@@ -43,6 +43,11 @@ public abstract class AbstractArticle implements IArticle {
     }
 
     @Override
+    public String getHtml() {
+        return articleHtml;
+    }
+
+    @Override
     public final List<Resource> getResources() throws IOException {
         load();
         return resources;
@@ -83,7 +88,7 @@ public abstract class AbstractArticle implements IArticle {
         Path target = Paths.get(targetFolder.toAbsolutePath() + "\\" + getName() + ".html");
         LOG.debug(format("Сохраняю статью: \"%s\"", target.toAbsolutePath()));
         if (!target.toFile().exists()) {
-            Files.write(target, Arrays.asList(articleHtml), Charset.forName("UTF-8"));
+            Files.write(target, Arrays.asList(getHtml()), Charset.forName("UTF-8"));
         } else {
             LOG.debug(format("%s уже загружен: %s", toString(), target));
         }
