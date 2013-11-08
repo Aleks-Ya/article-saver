@@ -12,12 +12,7 @@ import ru.yaal.project.articlesaver.url.UrlWrapper;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.String.format;
@@ -81,17 +76,6 @@ public abstract class AbstractArticle implements IArticle {
     public final String getName() throws IOException {
         load();
         return articleTitle;
-    }
-
-    @Override
-    public final void save(Path targetFolder) throws IOException {
-        Path target = Paths.get(targetFolder.toAbsolutePath() + "\\" + getName() + ".html");
-        LOG.debug(format("Сохраняю статью: \"%s\"", target.toAbsolutePath()));
-        if (!target.toFile().exists()) {
-            Files.write(target, Arrays.asList(getHtml()), Charset.forName("UTF-8"));
-        } else {
-            LOG.debug(format("%s уже загружен: %s", toString(), target));
-        }
     }
 
     @Override

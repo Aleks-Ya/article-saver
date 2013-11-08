@@ -4,7 +4,6 @@ import ru.yaal.project.articlesaver.Resource;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -22,8 +21,6 @@ public interface IArticle {
      * Возвращает HTML-код статьи.
      */
     String getHtml();
-
-    void save(Path targetFolder) throws IOException;
 
     UrlWrapper getUrl();
 }

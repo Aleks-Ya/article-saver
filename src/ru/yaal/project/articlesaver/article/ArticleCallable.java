@@ -1,10 +1,10 @@
 package ru.yaal.project.articlesaver.article;
 
 import org.apache.log4j.Logger;
-import ru.yaal.project.articlesaver.Resource;
+import ru.yaal.project.articlesaver.writer.IArticleWriter;
+import ru.yaal.project.articlesaver.writer.PathArticleWriter;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.concurrent.Callable;
 
 import static java.lang.String.format;
@@ -17,22 +17,18 @@ import static java.lang.String.format;
  */
 public class ArticleCallable implements Callable<IArticle> {
     private static final Logger LOG = Logger.getLogger(AutoCloseable.class);
-    private IArticle article;
-    private Path targetFolder;
+    private final IArticle article;
+    private final IArticleWriter articleWriter;
 
     public ArticleCallable(IArticle article, Path targetFolder) {
         this.article = article;
-        this.targetFolder = targetFolder;
+        articleWriter = new PathArticleWriter(targetFolder);
     }
 
     @Override
     public IArticle call() throws Exception {
         LOG.debug(format("Запускаю поток для загрузки статьи %s", article));
-        article.save(targetFolder);
-        List<Resource> resources = article.getResources();
-        for (Resource resource : resources) {
-            resource.save(targetFolder);
-        }
+        articleWriter.save(article);
         return article;
     }
 }
