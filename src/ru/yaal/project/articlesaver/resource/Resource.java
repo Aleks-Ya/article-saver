@@ -1,16 +1,13 @@
-package ru.yaal.project.articlesaver;
+package ru.yaal.project.articlesaver.resource;
 
 import org.apache.log4j.Logger;
-import ru.yaal.project.articlesaver.parameters.IParameters;
 import ru.yaal.project.articlesaver.url.UrlResolver;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -22,31 +19,18 @@ import static java.lang.String.format;
  * Date: 03.09.13
  * Time: 7:09
  */
-public final class Resource {
+public final class Resource implements IResource {
     private static final Logger LOG = Logger.getLogger(Resource.class);
     private final String originalUrl;
     private final UrlWrapper fullUrl;
+    private byte[] content;
 
     public Resource(String originalUrl, UrlResolver resolver) throws MalformedURLException {
         this.originalUrl = originalUrl;
         this.fullUrl = resolver.resolve(originalUrl);
     }
 
-    public void save(Path targetFolder) throws IOException {
-        Path resourceDir = Paths.get(targetFolder.toAbsolutePath() + IParameters.RESOURCES_DIR);
-        if (!resourceDir.toFile().exists()) {
-            Files.createDirectories(resourceDir);
-        }
-        Path target = Paths.get(resourceDir.toAbsolutePath() + "\\" + getFileName());
-        if (!target.toFile().exists()) {
-            try (InputStream is = fullUrl.openStream()) {
-                Files.copy(is, target);
-            }
-        } else {
-            LOG.debug(format("%s уже загружен: %s", toString(), target));
-        }
-    }
-
+    @Override
     public String getFileName() {
         String result;
         try {
@@ -75,7 +59,24 @@ public final class Resource {
         return format("[Ресурс originalUrl=%s]", originalUrl);
     }
 
+    @Override
     public String getOriginalUrl() {
         return originalUrl;
+    }
+
+    @Override
+    public byte[] getContent() throws IOException {
+        if (content == null) {
+            try (BufferedInputStream is = new BufferedInputStream(fullUrl.openStream())) {
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                int n;
+                byte[] data = new byte[10000];
+                while ((n = is.read(data, 0, data.length)) != -1) {
+                    buffer.write(data, 0, n);
+                }
+                content = buffer.toByteArray();
+            }
+        }
+        return content;
     }
 }

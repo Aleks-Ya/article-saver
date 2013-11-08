@@ -3,7 +3,7 @@ package ru.yaal.project.articlesaver.article;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import ru.yaal.project.articlesaver.Resource;
+import ru.yaal.project.articlesaver.resource.IResource;
 import ru.yaal.project.articlesaver.parameters.IParameters;
 import ru.yaal.project.articlesaver.url.UrlResolver;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
@@ -22,7 +22,7 @@ class WikipediaArticle extends AbstractArticle {
     }
 
     @Override
-    protected String fetchArticleHtml(HtmlPage page, List<Resource> resources) {
+    protected String fetchArticleHtml(HtmlPage page, List<IResource> resources) {
         HtmlDivision articleDiv = (HtmlDivision) page.getElementById("content");
         HtmlElement head = page.getFirstByXPath("/html/head");
         StringBuilder newHtml = new StringBuilder();
@@ -32,7 +32,7 @@ class WikipediaArticle extends AbstractArticle {
         newHtml.append(articleDiv.asXml());
         newHtml.append("<html><body>");
         String strHtml = newHtml.toString();
-        for (Resource resource : resources) {
+        for (IResource resource : resources) {
             strHtml = strHtml.replaceAll(resource.getOriginalUrl(),
                     "." + IParameters.RESOURCES_DIR + "/" + resource.getFileName());
         }

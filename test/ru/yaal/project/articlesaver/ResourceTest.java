@@ -1,6 +1,8 @@
 package ru.yaal.project.articlesaver;
 
 import org.testng.annotations.Test;
+import ru.yaal.project.articlesaver.resource.IResource;
+import ru.yaal.project.articlesaver.resource.Resource;
 import ru.yaal.project.articlesaver.url.UrlResolver;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
@@ -14,7 +16,7 @@ public class ResourceTest {
     public void getFileName() throws Exception {
         UrlResolver resolver = when(mock(UrlResolver.class).resolve(anyString()))
                 .thenReturn(new UrlWrapper("http://habrahabr.ru/i/habralogo.jpg")).getMock();
-        Resource resource = new Resource("http://habrahabr.ru/i/habralogo.jpg", resolver);
+        IResource resource = new Resource("http://habrahabr.ru/i/habralogo.jpg", resolver);
         assertEquals(resource.getFileName(), "69CC1A6F5584C1B7C8BCE851F142019FEF596281");
     }
 }

@@ -6,7 +6,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlLink;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
 import org.apache.log4j.Logger;
-import ru.yaal.project.articlesaver.Resource;
+import ru.yaal.project.articlesaver.resource.IResource;
+import ru.yaal.project.articlesaver.resource.Resource;
 import ru.yaal.project.articlesaver.url.UrlResolver;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
@@ -29,7 +30,7 @@ public abstract class AbstractArticle implements IArticle {
     private final UrlResolver resolver;
     private String articleHtml;
     private String articleTitle;
-    private List<Resource> resources;
+    private List<IResource> resources;
     private boolean isLoaded = false;
 
     AbstractArticle(UrlWrapper url, UrlResolver resolver) {
@@ -43,7 +44,7 @@ public abstract class AbstractArticle implements IArticle {
     }
 
     @Override
-    public final List<Resource> getResources() throws IOException {
+    public final List<IResource> getResources() throws IOException {
         load();
         return resources;
     }
@@ -68,7 +69,7 @@ public abstract class AbstractArticle implements IArticle {
         return result;
     }
 
-    protected abstract String fetchArticleHtml(HtmlPage page, List<Resource> resources);
+    protected abstract String fetchArticleHtml(HtmlPage page, List<IResource> resources);
 
     protected abstract String fetchArticleTitle(HtmlPage page);
 
@@ -99,8 +100,8 @@ public abstract class AbstractArticle implements IArticle {
     }
 
     @SuppressWarnings("unchecked")
-    private List<Resource> fetchResources(HtmlPage page) throws MalformedURLException {
-        List<Resource> resources = new ArrayList<>();
+    private List<IResource> fetchResources(HtmlPage page) throws MalformedURLException {
+        List<IResource> resources = new ArrayList<>();
         for (HtmlScript script : (List<HtmlScript>) page.getByXPath("/html/head/script")) {
             String src = script.getSrcAttribute();
             addResource(src, resources);
@@ -119,7 +120,7 @@ public abstract class AbstractArticle implements IArticle {
         return url;
     }
 
-    private void addResource(String src, List<Resource> resources) throws MalformedURLException {
+    private void addResource(String src, List<IResource> resources) throws MalformedURLException {
         if (src != null && !src.isEmpty()) {
             resources.add(new Resource(src, resolver));
         }

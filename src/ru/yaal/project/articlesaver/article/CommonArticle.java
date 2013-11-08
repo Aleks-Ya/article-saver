@@ -1,7 +1,7 @@
 package ru.yaal.project.articlesaver.article;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import ru.yaal.project.articlesaver.Resource;
+import ru.yaal.project.articlesaver.resource.IResource;
 import ru.yaal.project.articlesaver.url.UrlResolver;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
@@ -20,7 +20,7 @@ class CommonArticle extends AbstractArticle {
     }
 
     @Override
-    protected String fetchArticleHtml(HtmlPage page, List<Resource> resources) {
+    protected String fetchArticleHtml(HtmlPage page, List<IResource> resources) {
         throw new UnsupportedOperationException("Не реализовано");
     }
 

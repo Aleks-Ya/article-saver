@@ -1,6 +1,6 @@
 package ru.yaal.project.articlesaver.article;
 
-import ru.yaal.project.articlesaver.Resource;
+import ru.yaal.project.articlesaver.resource.IResource;
 import ru.yaal.project.articlesaver.url.UrlWrapper;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.List;
 public interface IArticle {
     String getName() throws IOException;
 
-    List<Resource> getResources() throws IOException;
+    List<IResource> getResources() throws IOException;
 
     /**
      * Возвращает HTML-код статьи.

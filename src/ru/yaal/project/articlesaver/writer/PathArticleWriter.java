@@ -1,10 +1,13 @@
 package ru.yaal.project.articlesaver.writer;
 
 import org.apache.log4j.Logger;
-import ru.yaal.project.articlesaver.Resource;
 import ru.yaal.project.articlesaver.article.IArticle;
+import ru.yaal.project.articlesaver.parameters.IParameters;
+import ru.yaal.project.articlesaver.resource.IResource;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,12 +40,27 @@ public class PathArticleWriter implements IArticleWriter {
             } else {
                 LOG.debug(format("%s уже загружен: %s", toString(), target));
             }
-            List<Resource> resources = article.getResources();
-            for (Resource resource : resources) {
-                resource.save(targetFolder);
+            List<IResource> resources = article.getResources();
+            for (IResource resource : resources) {
+                saveResource(resource);
             }
         } catch (IOException e) {
             throw new ArticleWriteException(e.getMessage(), e);
+        }
+    }
+
+    private void saveResource(IResource resource) throws IOException {
+        Path resourceDir = Paths.get(targetFolder.toAbsolutePath() + IParameters.RESOURCES_DIR);
+        if (!resourceDir.toFile().exists()) {
+            Files.createDirectories(resourceDir);
+        }
+        Path target = Paths.get(resourceDir.toAbsolutePath() + "\\" + resource.getFileName());
+        if (!target.toFile().exists()) {
+            try (InputStream is = new ByteArrayInputStream(resource.getContent())) {
+                Files.copy(is, target);
+            }
+        } else {
+            LOG.debug(format("%s уже загружен: %s", toString(), target));
         }
     }
 }
