@@ -4,11 +4,9 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import static java.lang.String.format;
 
@@ -18,11 +16,10 @@ import static java.lang.String.format;
  * Date: 21.09.13
  * Time: 12:26
  */
-public class ArticleLoader {
+public class ArticleLoader implements ILoadingInfo {
     private static final Logger LOG = Logger.getLogger(ArticleLoader.class);
     private static final int THREAD_POOL_SIZE = 30;
-    private final List<Future<IArticle>> futures = new ArrayList<>();
-    private final ExecutorService es = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    private final ThreadPoolExecutor es = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
     private final Path targetFolder;
 
     public ArticleLoader(Path targetFolder) {
@@ -31,7 +28,7 @@ public class ArticleLoader {
 
     public void load(IArticle article) throws IOException {
         LOG.info(format("Запланировал загрузку: %s", article.getUrl()));
-        futures.add(es.submit(new ArticleCallable(article, targetFolder)));
+        es.submit(new ArticleCallable(article, targetFolder));
     }
 
     public void load(List<IArticle> articles) throws IOException {
@@ -42,14 +39,23 @@ public class ArticleLoader {
 
     public void stop() throws InterruptedException {
         es.shutdown();
-        while (futures.size() > 0) {
-            for (Future<IArticle> future : new ArrayList<>(futures)) {
-                if (future.isDone()) {
-                    futures.remove(future);
-                }
-            }
+        while (loadingNow() > 0) {
             Thread.sleep(500);
         }
     }
 
+    @Override
+    public int waitForLoading() {
+        return (int) es.getTaskCount();
+    }
+
+    @Override
+    public int loadingNow() {
+        return es.getActiveCount();
+    }
+
+    @Override
+    public int hasLoaded() {
+        return (int) es.getCompletedTaskCount();
+    }
 }
