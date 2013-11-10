@@ -12,6 +12,11 @@
         <param name="threshold" value="info"/>
         <layout class="org.apache.log4j.SimpleLayout"/>
     </appender>
+    <appender name="guiAppender" class="ru.yaal.project.articlesaver.ui.GuiAppender">
+        <param name="threshold" value="info"/>
+        <!--todo настроить вывод без INFO-->
+        <layout class="org.apache.log4j.SimpleLayout"/>
+    </appender>
     <logger name="ru.yaal.project.articlesaver">
         <level value="trace"/>
     </logger>
@@ -19,5 +24,6 @@
         <level value="off"/>
         <appender-ref ref="consoleAppender"/>
         <appender-ref ref="fileAppender"/>
+        <appender-ref ref="guiAppender"/>
     </root>
 </log4j:configuration>
