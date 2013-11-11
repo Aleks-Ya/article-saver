@@ -3,6 +3,7 @@ package ru.yaal.project.articlesaver.ui;
 import org.apache.log4j.Level;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.event.ActionListener;
 import java.util.Properties;
 
@@ -24,6 +25,7 @@ public class GuiStart extends Thread {
     public void run() {
         final JFrame frame = new JFrame("Article Saver");
         frame.setJMenuBar(prepareMenu());
+        frame.add(prepareLog());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
         frame.setVisible(true);
@@ -55,5 +57,16 @@ public class GuiStart extends Thread {
         menuBar.add(logLevelMenu);
         menuBar.add(exitMenuItem);
         return menuBar;
+    }
+
+    private JPanel prepareLog() {
+        JTextArea logTextArea = new JTextArea();
+        TitledBorder border = new TitledBorder("Log");
+
+        JPanel panel = new JPanel();
+        panel.add(logTextArea);
+        panel.setEnabled(false);
+        panel.setBorder(border);
+        return panel;
     }
 }
