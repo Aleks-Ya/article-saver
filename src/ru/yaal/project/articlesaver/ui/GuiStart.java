@@ -4,6 +4,7 @@ import org.apache.log4j.Level;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Properties;
 
@@ -24,8 +25,13 @@ public class GuiStart extends Thread {
     @Override
     public void run() {
         final JFrame frame = new JFrame("Article Saver");
+        Container contentPane = frame.getContentPane();
+        BoxLayout layout = new BoxLayout(contentPane, BoxLayout.Y_AXIS);
         frame.setJMenuBar(prepareMenu());
-        frame.add(prepareLog());
+        contentPane.setLayout(layout);
+        contentPane.add(prepareTargetFolder());
+        contentPane.add(prepareStatistics());
+        contentPane.add(prepareLog());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
         frame.setVisible(true);
@@ -66,6 +72,30 @@ public class GuiStart extends Thread {
         JPanel panel = new JPanel();
         panel.add(logTextArea);
         panel.setEnabled(false);
+        panel.setBorder(border);
+        return panel;
+    }
+
+    private JPanel prepareStatistics() {
+        TitledBorder border = new TitledBorder("Statistics");
+        JPanel panel = new JPanel();
+        BoxLayout layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+        panel.setLayout(layout);
+        panel.add(new StatisticsLabel("Wait for loading: "));
+        panel.add(new StatisticsLabel("Is loading: "));
+        panel.add(new StatisticsLabel("Has loaded: "));
+        panel.setEnabled(false);
+        panel.setBorder(border);
+        return panel;
+    }
+
+    private JPanel prepareTargetFolder() {
+        TitledBorder border = new TitledBorder("Target Folder");
+        JTextField targetFolderField = new JTextField(20);
+        JButton chooseFolderButton = new JButton("...");
+        JPanel panel = new JPanel();
+        panel.add(targetFolderField);
+        panel.add(chooseFolderButton);
         panel.setBorder(border);
         return panel;
     }
