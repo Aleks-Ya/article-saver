@@ -14,7 +14,7 @@ public class JpaArticleWriterTest {
         BasicConfigurator.configure();
     }
 
-    @Test
+    @Test(enabled = false, description = "Требует подключения к БД")
     public void save() throws Exception {
         ResourceEntity resource = new ResourceEntity();
         resource.setOriginalUrl("http://jquery.com/lib.js");
