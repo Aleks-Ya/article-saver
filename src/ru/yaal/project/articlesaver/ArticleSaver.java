@@ -79,13 +79,13 @@ public class ArticleSaver {
     /**
      * Если папка не существует, создает ее (на всю глубину).
      */
-    private static void createTargetFolder(Path targetFolder) {
+    private static void createTargetFolder(Path targetFolder) throws IOException {
         File target = targetFolder.toFile();
         if (!target.exists()) {
             boolean created = target.mkdirs();
             LOG.debug(format("Создана целевая папка (результат %b): %s", created, target));
         } else {
-            LOG.debug(format("Создана целевая папка уже существует: %s", target));
+            throw new IOException(String.format("Can't create target folder: %s", target.getAbsolutePath()));
         }
     }
 
