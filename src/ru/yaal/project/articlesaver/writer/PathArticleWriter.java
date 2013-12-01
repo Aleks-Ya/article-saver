@@ -33,6 +33,9 @@ public class PathArticleWriter implements IArticleWriter {
     @Override
     public void save(IArticle article) throws ArticleWriteException {
         try {
+            if (!targetFolder.toFile().exists()) {
+                throw new ArticleWriteException("Target folder don't exists: %s", targetFolder.toFile().getAbsoluteFile());
+            }
             Path target = Paths.get(targetFolder.toAbsolutePath() + "\\" + article.getName() + ".html");
             LOG.debug(format("Сохраняю статью: \"%s\"", target.toAbsolutePath()));
             if (!target.toFile().exists()) {

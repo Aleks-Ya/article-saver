@@ -11,4 +11,8 @@ class ArticleWriteException extends Exception {
     public ArticleWriteException(String message, IOException cause) {
         super(message, cause);
     }
+
+    public ArticleWriteException(String format, Object... args) {
+        super(String.format(format, args));
+    }
 }
